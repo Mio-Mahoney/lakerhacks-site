@@ -37,18 +37,30 @@
 <div class="sticky top-0 bg-white">
 	<!-- Mobile header with logo and menu button -->
 	<div class="flex items-center justify-between p-4 md:hidden">
-		<div class="text-xl font-bold">LakerHacks</div>
+		<div class="flex items-center">
+			<img src="/logo.png" alt="LakerHacks Logo" class="h-8 w-auto mr-2" />
+		</div>
 		<NavButton {isMenuOpen} {toggleMenu} />
 	</div>
 
 	<!-- Navigation -->
 	<nav class={`${isMenuOpen ? 'block' : 'hidden'} bg-white px-2 py-4 shadow-sm md:block`}>
 		<div
-			class="mx-auto flex max-w-6xl flex-col space-y-2 md:flex-row md:justify-center md:space-y-0 md:space-x-4"
+			class="mx-auto flex max-w-6xl flex-col space-y-2 md:flex-row md:justify-between md:items-center md:space-y-0 md:space-x-4"
 		>
-			{#each navItems as item, i}
-				<NavItem href={item.href} label={item.label} isLastItem={i === navItems.length - 1} />
-			{/each}
+			<div class="hidden md:flex md:items-center">
+				<img src="/logo.png" alt="LakerHacks Logo" class="h-8 w-auto mr-2" />
+			</div>
+			<div class="flex flex-col md:flex-row md:space-x-4">
+				{#each navItems as item, i}
+					<NavItem 
+						href={item.href} 
+						label={item.label} 
+						external={item.external}
+						isLastItem={i === navItems.length - 1} 
+					/>
+				{/each}
+			</div>
 		</div>
 	</nav>
 </div>
