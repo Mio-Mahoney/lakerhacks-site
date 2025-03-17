@@ -1,6 +1,7 @@
 <script lang="ts">
 	import Header from '$lib/Components/Header.svelte';
 	import Navbar from '$lib/Components/Navbar.svelte';
+	import Button from '$lib/Components/Button.svelte';
 
 	import { onMount } from 'svelte';
 
@@ -25,7 +26,7 @@
 		{ id: 'tracks', label: 'TRACKS/PRIZES', href: '#tracks' },
 		{ id: 'faq', label: 'FAQ', href: '#faq' },
 		{ id: 'discord', label: 'DISCORD', href: '#discord' },
-		{ id: 'register', label: 'REGISTER', href: '#register' }
+		{ id: 'register', label: 'REGISTER', href: '' }
 	];
 
 	// Type for sponsor placeholder
@@ -153,30 +154,37 @@
 	</div>
 </section>
 
-<section id="schedule" class="mx-auto mb-16 max-w-4xl px-4">
-	<div class="flex gap-100">
-		<div
-			class="flex h-[353px] w-[486px] items-center justify-center border border-gray-300 bg-gray-200"
-		>
-			<svg
-				class="h-12 w-12 text-gray-400"
-				fill="none"
-				stroke="currentColor"
-				viewBox="0 0 24 24"
-				aria-label={` logo placeholder`}
-			>
-				<path
-					stroke-linecap="round"
-					stroke-linejoin="round"
-					stroke-width="0.5"
-					d="M6 18L18 6M6 6l12 12"
-				/>
-			</svg>
+<section id="schedule" class="mx-auto mb-16 flex max-w-4xl flex-col gap-25 px-4">
+	<div class="flex flex-row justify-center gap-x-50">
+		<svg class="h-24 w-24 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+			<path
+				stroke-linecap="round"
+				stroke-linejoin="round"
+				stroke-width="0.5"
+				d="M6 18L18 6M6 6l12 12"
+			></path>
+		</svg>
+
+		<div class="flex flex-col">
+			<Header>What to Expect</Header>
+			<div class="p-5">This is the body</div>
+			<Button />
 		</div>
-		<div>
-			<Header>What to expect</Header>
-			Solve real challenges, get expert mentorship, and compete for prizes.
-			<button class="gap-y-1.5">Schedule</button>
+	</div>
+	<div class="flex flex-row-reverse justify-center gap-x-50">
+		<svg class="h-24 w-24 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+			<path
+				stroke-linecap="round"
+				stroke-linejoin="round"
+				stroke-width="0.5"
+				d="M6 18L18 6M6 6l12 12"
+			></path>
+		</svg>
+
+		<div class="flex flex-col gap-y-5">
+			<Header>What to Expect</Header>
+			<div>This is the body</div>
+			<Button />
 		</div>
 	</div>
 </section>
