@@ -1,7 +1,7 @@
 <script lang="ts">
 	import Header from '$lib/Components/Header.svelte';
 	import Navbar from '$lib/Components/Navbar.svelte';
-
+	import Button from '$lib/Components/Button.svelte';
 	import { onMount } from 'svelte';
 
 	// For responsive navigation
@@ -74,16 +74,31 @@
 
 <Navbar {navItems} />
 
-<main class="mt-[72px] px-[100px] flex flex-col gap-[60px]">
+<main class="mt-[72px] flex flex-col gap-[60px] px-[100px]">
 	<!-- Hero Section -->
 	<header class="mx-auto w-full max-w-[800px] text-center">
 		<div class="flex flex-col gap-2.5">
 			<p class="text-gray-800">April 19th-20th</p>
 			<h1 class="text-4xl font-normal md:text-5xl">LakerHacks</h1>
 			<p class="flex items-center justify-center gap-1 text-gray-800">
-				<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
-					<path stroke-linecap="round" stroke-linejoin="round" d="M15 10.5a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
-					<path stroke-linecap="round" stroke-linejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1 1 15 0Z" />
+				<svg
+					xmlns="http://www.w3.org/2000/svg"
+					fill="none"
+					viewBox="0 0 24 24"
+					stroke-width="1.5"
+					stroke="currentColor"
+					class="h-5 w-5"
+				>
+					<path
+						stroke-linecap="round"
+						stroke-linejoin="round"
+						d="M15 10.5a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"
+					/>
+					<path
+						stroke-linecap="round"
+						stroke-linejoin="round"
+						d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1 1 15 0Z"
+					/>
 				</svg>
 				SUNY Oswego
 			</p>
@@ -99,24 +114,20 @@
 		</div>
 
 		<!-- Placeholder for promo video -->
-		<div
-			class="mx-auto aspect-video bg-gray-200"
-		>
-		</div>
+		<div class="mx-auto aspect-video bg-gray-200"></div>
 	</header>
 
 	<!-- Sponsors Section -->
 	<section id="sponsors" class="mx-auto w-full max-w-[800px] text-center">
 		<h2>Sponsors</h2>
 		<div class="flex flex-wrap justify-center gap-[60px]">
-			<img src="/logo.png" alt="Sponsor Logo" class="h-4 w-auto">
-			<img src="/logo.png" alt="Sponsor Logo" class="h-4 w-auto">
-			<img src="/logo.png" alt="Sponsor Logo" class="h-4 w-auto">
-			<img src="/logo.png" alt="Sponsor Logo" class="h-4 w-auto">
-			<img src="/logo.png" alt="Sponsor Logo" class="h-4 w-auto">
-			<img src="/logo.png" alt="Sponsor Logo" class="h-4 w-auto">
+			<img src="/logo.png" alt="Sponsor Logo" class="h-4 w-auto" />
+			<img src="/logo.png" alt="Sponsor Logo" class="h-4 w-auto" />
+			<img src="/logo.png" alt="Sponsor Logo" class="h-4 w-auto" />
+			<img src="/logo.png" alt="Sponsor Logo" class="h-4 w-auto" />
+			<img src="/logo.png" alt="Sponsor Logo" class="h-4 w-auto" />
+			<img src="/logo.png" alt="Sponsor Logo" class="h-4 w-auto" />
 		</div>
-
 	</section>
 
 	<!-- About Section -->
@@ -124,12 +135,12 @@
 		<Header>About</Header>
 
 		<div class="mx-auto max-w-2xl bg-gray-200 p-6 text-center">
-			<p class="text-gray-800 font-normal">
-				LakerHacks is SUNY Oswego's annual hackathon, bringing together students, innovators, and tech
-				enthusiasts. It offers 24 hours of coding, mentorship, and collaboration. Whether you're a
-				beginner or an experienced developer, this event is your chance to build impactful projects,
-				connect with like-minded peers, and compete for exciting prizes. Join us at LakerHacks and
-				turn your ideas into reality!
+			<p class="font-normal text-gray-800">
+				LakerHacks is SUNY Oswego's annual hackathon, bringing together students, innovators, and
+				tech enthusiasts. It offers 24 hours of coding, mentorship, and collaboration. Whether
+				you're a beginner or an experienced developer, this event is your chance to build impactful
+				projects, connect with like-minded peers, and compete for exciting prizes. Join us at
+				LakerHacks and turn your ideas into reality!
 			</p>
 		</div>
 	</section>
@@ -158,6 +169,55 @@
 				<Header>What to expect</Header>
 				Solve real challenges, get expert mentorship, and compete for prizes.
 				<button class="gap-y-1.5">Schedule</button>
+			</div>
+		</div>
+	</section>
+
+	<section id="about" class="mx-auto mb-16 max-w-4xl px-4">
+		<Header>About</Header>
+
+		<div class="mx-auto max-w-2xl bg-gray-200 p-6 text-center">
+			<p class="text-gray-800">
+				LakerHacks is SUNY Oswego's annual hackathon, bringing together students, innovators, and
+				tech enthusiasts. It offers 24 hours of coding, mentorship, and collaboration. Whether
+				you're a beginner or an experienced developer, this event is your chance to build impactful
+				projects, connect with like-minded peers, and compete for exciting prizes. Join us at
+				LakerHacks and turn your ideas into reality!
+			</p>
+		</div>
+	</section>
+
+	<section id="schedule" class="mx-auto mb-16 flex max-w-4xl flex-col gap-25 px-4">
+		<div class="flex flex-row justify-center gap-x-50">
+			<svg class="h-24 w-24 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+				<path
+					stroke-linecap="round"
+					stroke-linejoin="round"
+					stroke-width="0.5"
+					d="M6 18L18 6M6 6l12 12"
+				></path>
+			</svg>
+
+			<div class="flex flex-col">
+				<Header>What to Expect</Header>
+				<div class="p-5">This is the body</div>
+				<Button />
+			</div>
+		</div>
+		<div class="flex flex-row-reverse justify-center gap-x-50">
+			<svg class="h-24 w-24 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+				<path
+					stroke-linecap="round"
+					stroke-linejoin="round"
+					stroke-width="0.5"
+					d="M6 18L18 6M6 6l12 12"
+				></path>
+			</svg>
+
+			<div class="flex flex-col gap-y-5">
+				<Header>What to Expect</Header>
+				<div>This is the body</div>
+				<Button />
 			</div>
 		</div>
 	</section>
