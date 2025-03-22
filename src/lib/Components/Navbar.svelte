@@ -36,28 +36,35 @@
 
 <div class="sticky top-0 bg-white">
 	<!-- Mobile header with logo and menu button -->
-	<div class="flex items-center justify-between p-4 md:hidden">
+	<div class="flex items-center justify-between py-[14px] px-[20px] border-b border-gray-200 xl:hidden">
 		<div class="flex items-center">
-			<img src="/logo.png" alt="LakerHacks Logo" class="h-8 w-auto mr-2" />
+			<a href="/" aria-label="Go to Home">
+				<img src="/logo.png" alt="LakerHacks Logo" class="h-[40px] w-auto" />
+			</a>
 		</div>
 		<NavButton {isMenuOpen} {toggleMenu} />
 	</div>
 
 	<!-- Navigation -->
-	<nav class={`${isMenuOpen ? 'block' : 'hidden'} bg-white px-2 py-4 shadow-sm md:block`}>
+	<nav class={`${isMenuOpen ? 'block' : 'hidden'} bg-white py-[14px] px-[20px] border-b border-gray-200 xl:block`}>
 		<div
-			class="mx-auto flex max-w-6xl flex-col space-y-2 md:flex-row md:justify-between md:items-center md:space-y-0 md:space-x-4"
+			class="flex justify-between items-center"
 		>
-			<div class="hidden md:flex md:items-center">
-				<img src="/logo.png" alt="LakerHacks Logo" class="h-8 w-auto mr-2" />
+			<div class="hidden xl:flex xl:items-center">
+				<a href="/" aria-label="Go to Home">
+					<img src="/logo.png" alt="LakerHacks Logo" class="h-[40px] w-auto" />
+				</a>
 			</div>
-			<div class="flex flex-col md:flex-row md:space-x-4">
-				{#each navItems as item, i}
+			<div class="flex flex-col xl:flex-row gap-[20px] justify-center items-center w-full xl:w-auto">
+				{#each navItems as item}
 					<NavItem 
 						href={item.href} 
 						label={item.label} 
-						external={item.external}
-						isLastItem={i === navItems.length - 1} 
+						class={`${
+							item.id === 'register' ? 'bg-gray-800 px-6 py-2 text-sm font-medium text-white rounded-md transition-colors hover:bg-gray-700 ' :
+							item.id === 'discord' ? 'bg-gray-800 px-6 py-2 text-sm font-medium text-white rounded-md transition-colors hover:bg-gray-700 ' :
+							'block w-auto px-3 py-2 text-gray-700 hover:bg-gray-100 hover:text-gray-900 rounded-md transition-colors md:inline-block text-center'
+						}`}
 					/>
 				{/each}
 			</div>
