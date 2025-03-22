@@ -111,8 +111,12 @@
 				</div>
 			</div>
 
-			<!-- Placeholder for promo video -->
-			<div class="mx-auto w-full max-w-[1000px] aspect-video rounded-xl bg-gray-200"></div>
+			<!-- Promo video section -->
+			<video class="mx-auto w-full max-w-[1000px] aspect-video rounded-xl" controls>
+				<source src="/lakerhacks-promo.mp4" type="video/mp4">
+				<track kind="captions" src="/lakerhacks-promo-captions.vtt" srclang="en" label="English" default>
+				Your browser does not support the video tag.
+			</video>
 		</div>
 	</section>
 
@@ -298,6 +302,18 @@
 		</div>
 	</section>
 </main>
+
+<!-- Footer Section -->
+<footer class="bg-gray-800 text-white py-[14px] px-[20px]">
+	<div class="mx-auto flex justify-between">
+		<p class="text-sm">&copy; 2023 LakerHacks. All rights reserved.</p>
+		<div class="flex gap-8">
+			<a href="#about" class="hover:underline text-sm">About</a>
+			<a href="#faq" class="hover:underline text-sm">FAQ</a>
+			<a href="https://discord.gg/GJrP3cQt2x" class="hover:underline text-sm">Join Our Discord</a>
+		</div>
+	</div>
+</footer>
 
 <style>
 	/* Add any additional custom styles here */
