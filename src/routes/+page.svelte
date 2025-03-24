@@ -9,7 +9,8 @@
 		isMenuOpen = !isMenuOpen;
 	}
 
-	// Define navigation items with a TypeScript interface
+	const registrationURL = 'https://www.google.com';
+	const discordURL = 'https://discord.gg/GJrP3cQt2x';
 
 	const navItems: NavItem[] = [
 		{ id: 'about', label: 'About', href: '#about' },
@@ -17,8 +18,8 @@
 		{ id: 'resources', label: 'Resources', href: '#resources' },
 		{ id: 'tracks', label: 'Tracks/Prizes', href: '#tracks' },
 		{ id: 'faq', label: 'FAQ', href: '#faq' },
-		{ id: 'discord', label: 'Join Our Discord', href: 'https://discord.gg/GJrP3cQt2x' },
-		{ id: 'register', label: 'Register Now', href: '#register' }
+		{ id: 'discord', label: 'Join Our Discord', href: discordURL },
+		{ id: 'register', label: 'Register Now', href: registrationURL }
 	];
 
 	const faqItems: FAQItem[] = [
@@ -109,7 +110,7 @@
 
 				<div class="mt-4 flex justify-center">
 					<a
-						href="#register"
+						href={registrationURL}
 						class="rounded-md bg-gray-800 px-6 py-2 text-sm font-medium text-white transition-colors hover:bg-gray-700"
 					>
 						Register Now
@@ -193,7 +194,7 @@
 					</p>
 					<div class="flex justify-center md:justify-start">
 						<a
-							href="#register"
+							href={registrationURL}
 							class="rounded-md bg-gray-800 px-6 py-2 text-sm font-medium text-white transition-colors hover:bg-gray-700"
 						>
 							Register Now
@@ -326,7 +327,7 @@
 			<h2>Ready to Hack?</h2>
 			<div class="flex justify-center">
 				<a
-					href="#register"
+					href={registrationURL}
 					class="rounded-md bg-gray-800 px-6 py-2 text-sm font-medium text-white transition-colors hover:bg-gray-700"
 				>
 					Register Now
@@ -343,7 +344,7 @@
 		<div class="flex gap-8">
 			<a href="#about" class="text-sm hover:underline">About</a>
 			<a href="#faq" class="text-sm hover:underline">FAQ</a>
-			<a href="https://discord.gg/GJrP3cQt2x" class="text-sm hover:underline">Join Our Discord</a>
+			<a href={discordURL} class="text-sm hover:underline">Join Our Discord</a>
 		</div>
 	</div>
 </footer>
