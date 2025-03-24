@@ -15,8 +15,8 @@
 	const navItems: NavItem[] = [
 		{ id: 'about', label: 'About', href: '#about' },
 		{ id: 'schedule', label: 'Schedule', href: '#schedule' },
-		{ id: 'resources', label: 'Resources', href: '#resources' },
-		{ id: 'tracks', label: 'Tracks/Prizes', href: '#tracks' },
+		{ id: 'resources', label: 'Resources', href: '#faq' },
+		{ id: 'tracks', label: 'Tracks/Prizes', href: '#faq' },
 		{ id: 'faq', label: 'FAQ', href: '#faq' },
 		{ id: 'discord', label: 'Join Our Discord', href: discordURL },
 		{ id: 'register', label: 'Register Now', href: registrationURL }

@@ -12,5 +12,5 @@
 </svelte:head>
 
 <main class="min-h-full bg-white">
-{@render children()}
+	{@render children()}
 </main>
