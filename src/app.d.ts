@@ -1,18 +1,17 @@
 // See https://svelte.dev/docs/kit/types#app.d.ts
 // for information about these interfaces
 declare global {
-	namespace App {
-		// interface Error {}
-		// interface Locals {}
-		// interface PageData {}
-		// interface PageState {}
-		// interface Platform {}
-		interface NavItems {
-			id: string;
-			label: string;
-			href: string;
-		};
+	interface NavItem {
+		id: string;
+		label: string;
+		href: string;
+	}
+
+	interface FAQItem {
+		question: string;
+		answer: string;
+		expanded: boolean;
 	}
 }
 
-export { };
+export {};
