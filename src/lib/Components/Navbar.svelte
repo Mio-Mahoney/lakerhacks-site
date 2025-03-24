@@ -36,7 +36,9 @@
 
 <div class="sticky top-0 bg-white">
 	<!-- Mobile header with logo and menu button -->
-	<div class="flex items-center justify-between py-[14px] px-[20px] border-b border-gray-200 xl:hidden">
+	<div
+		class="flex items-center justify-between border-b border-gray-200 px-[20px] py-[14px] xl:hidden"
+	>
 		<div class="flex items-center">
 			<a href="/" aria-label="Go to Home">
 				<img src="/logo.png" alt="LakerHacks Logo" class="h-[40px] w-auto" />
@@ -46,24 +48,28 @@
 	</div>
 
 	<!-- Navigation -->
-	<nav class={`${isMenuOpen ? 'block' : 'hidden'} bg-white py-[14px] px-[20px] border-b border-gray-200 xl:block`}>
-		<div
-			class="flex justify-between items-center"
-		>
+	<nav
+		class={`${isMenuOpen ? 'block' : 'hidden'} border-b border-gray-200 bg-white px-[20px] py-[14px] xl:block`}
+	>
+		<div class="flex items-center justify-between">
 			<div class="hidden xl:flex xl:items-center">
-				<a href="/" aria-label="Go to Home">
+				<a href="/#home" aria-label="Go to Home">
 					<img src="/logo.png" alt="LakerHacks Logo" class="h-[40px] w-auto" />
 				</a>
 			</div>
-			<div class="flex flex-col xl:flex-row gap-[20px] justify-center items-center w-full xl:w-auto">
+			<div
+				class="flex w-full flex-col items-center justify-center gap-[20px] xl:w-auto xl:flex-row"
+			>
 				{#each navItems as item}
-					<NavItem 
-						href={item.href} 
-						label={item.label} 
+					<NavItem
+						href={item.href}
+						label={item.label}
 						class={`${
-							item.id === 'register' ? 'bg-gray-800 px-6 py-2 text-sm font-medium text-white rounded-md transition-colors hover:bg-gray-700 ' :
-							item.id === 'discord' ? 'bg-gray-800 px-6 py-2 text-sm font-medium text-white rounded-md transition-colors hover:bg-gray-700 ' :
-							'block w-auto px-3 py-2 text-gray-700 hover:bg-gray-100 hover:text-gray-900 rounded-md transition-colors md:inline-block text-center'
+							item.id === 'register'
+								? 'rounded-md bg-gray-800 px-6 py-2 text-sm font-medium text-white transition-colors hover:bg-gray-700 '
+								: item.id === 'discord'
+									? 'rounded-md bg-gray-800 px-6 py-2 text-sm font-medium text-white transition-colors hover:bg-gray-700 '
+									: 'block w-auto rounded-md px-3 py-2 text-center text-gray-700 transition-colors hover:bg-gray-100 hover:text-gray-900 md:inline-block'
 						}`}
 					/>
 				{/each}
