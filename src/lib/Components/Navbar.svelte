@@ -2,6 +2,7 @@
 	import { onMount } from 'svelte';
 	import NavItem from './NavItem.svelte';
 	import NavButton from './NavButton.svelte';
+	import Logo from '$lib/assets/logo.png';
 
 	const { navItems } = $props();
 
@@ -41,7 +42,7 @@
 	>
 		<div class="flex items-center">
 			<a href="/" aria-label="Go to Home">
-				<img src="/logo.png" alt="LakerHacks Logo" class="h-[40px] w-auto" />
+				<img src={Logo} alt="LakerHacks Logo" class="h-[40px] w-auto" />-
 			</a>
 		</div>
 		<NavButton {isMenuOpen} {toggleMenu} />
@@ -54,7 +55,7 @@
 		<div class="flex items-center justify-between">
 			<div class="hidden xl:flex xl:items-center">
 				<a href="/#home" aria-label="Go to Home">
-					<img src="/logo.png" alt="LakerHacks Logo" class="h-[40px] w-auto" />
+					<img src={Logo} alt="LakerHacks Logo" class="h-[40px] w-auto" />
 				</a>
 			</div>
 			<div

@@ -1,6 +1,10 @@
 <script lang="ts">
 	import Navbar from '$lib/Components/Navbar.svelte';
 	import { onMount } from 'svelte';
+	import Video from '$lib/assets/lakerhacks-promo.mp4';
+	import Logo from '$lib/assets/logo.png';
+	import Captions from '$lib/assets/lakerhacks-promo-captions.vtt';
+	import TeamItem from '$lib/Components/TeamItem.svelte';
 
 	// For responsive navigation
 	let isMenuOpen: boolean = false;
@@ -120,14 +124,8 @@
 
 			<!-- Promo video section -->
 			<video class="mx-auto aspect-video w-full max-w-[1000px] rounded-xl" controls>
-				<source src="/lakerhacks-promo.mp4" type="video/mp4" />
-				<track
-					kind="captions"
-					src="/lakerhacks-promo-captions.vtt"
-					srclang="en"
-					label="English"
-					default
-				/>
+				<source src={Video} type="video/mp4" />
+				<track kind="captions" src={Captions} srclang="en" label="English" default />
 				Your browser does not support the video tag.
 			</video>
 		</div>
@@ -153,11 +151,11 @@
 		<div class="mx-auto flex max-w-[1000px] flex-col gap-[60px]">
 			<h2>Sponsors</h2>
 			<div class="flex flex-wrap justify-center gap-[60px]">
-				<img src="/logo.png" alt="Sponsor Logo" class="h-4 w-auto" />
-				<img src="/logo.png" alt="Sponsor Logo" class="h-4 w-auto" />
-				<img src="/logo.png" alt="Sponsor Logo" class="h-4 w-auto" />
-				<img src="/logo.png" alt="Sponsor Logo" class="h-4 w-auto" />
-				<img src="/logo.png" alt="Sponsor Logo" class="h-4 w-auto" />
+				<img src={Logo} alt="Sponsor Logo" class="h-4 w-auto" />
+				<img src={Logo} alt="Sponsor Logo" class="h-4 w-auto" />
+				<img src={Logo} alt="Sponsor Logo" class="h-4 w-auto" />
+				<img src={Logo} alt="Sponsor Logo" class="h-4 w-auto" />
+				<img src={Logo} alt="Sponsor Logo" class="h-4 w-auto" />
 			</div>
 			<p>Looking to sponsor? Email us at lakerhacks@oswego.edu for more details!</p>
 		</div>
@@ -247,27 +245,9 @@
 			<div class="flex flex-col gap-[20px] md:flex-row">
 				<!-- Column 1 -->
 				<div class="flex w-full flex-col gap-[20px]">
-					<div class="flex flex-row gap-[15px] rounded-xl bg-gray-200 p-[30px]">
-						<div class="h-[50px] w-[50px] rounded-full bg-gray-400"></div>
-						<div class="flex flex-col justify-center">
-							<p class="text-left text-[20px] font-bold">Name</p>
-							<p class="text-left text-[14px] text-gray-800">Role</p>
-						</div>
-					</div>
-					<div class="flex flex-row gap-[15px] rounded-xl bg-gray-200 p-[30px]">
-						<div class="h-[50px] w-[50px] rounded-full bg-gray-400"></div>
-						<div class="flex flex-col justify-center">
-							<p class="text-left text-[20px] font-bold">Name</p>
-							<p class="text-left text-[14px] text-gray-800">Role</p>
-						</div>
-					</div>
-					<div class="flex flex-row gap-[15px] rounded-xl bg-gray-200 p-[30px]">
-						<div class="h-[50px] w-[50px] rounded-full bg-gray-400"></div>
-						<div class="flex flex-col justify-center">
-							<p class="text-left text-[20px] font-bold">Name</p>
-							<p class="text-left text-[14px] text-gray-800">Role</p>
-						</div>
-					</div>
+					<TeamItem name="name" role="Role" />
+					<TeamItem name="name" role="Role" />
+					<TeamItem name="name" role="Role" />
 				</div>
 				<!-- Column 2 -->
 				<div class="flex w-full flex-col gap-[20px]">
