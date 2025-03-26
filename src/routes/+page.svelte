@@ -59,7 +59,7 @@
 	const faqItems: FAQItem[] = [
 		{
 			question: 'What is a hackathon?',
-			answer: 'Hackathons are events where people come together to build innovative projects and compete for prizes. At LakerHacks, you\'ll have 24 hours to work with your team to create something amazing. It\'s a great opportunity to learn new technologies, meet other developers, and build your portfolio. Whether you\'re a beginner or an experienced programmer, hackathons are perfect for pushing your boundaries and creating something unique.',
+			answer: 'Hackathons are events where people come together to build innovative projects and compete for prizes. At LakerHacks, you\'ll have 24 hours to work with your team to create something amazing. It\'s a great opportunity to learn valuable skills, meet other developers, and build your portfolio. Whether you\'re a beginner or an experienced programmer, hackathons are perfect for pushing your boundaries.',
 			expanded: false
 		},
 		{ 
