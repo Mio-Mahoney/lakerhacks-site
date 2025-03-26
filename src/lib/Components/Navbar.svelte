@@ -77,6 +77,7 @@
 										? 'rounded-md bg-[#5865F2] px-6 py-2 text-sm font-medium text-white transition-colors hover:bg-[#4752C4] flex items-center justify-center'
 										: 'block w-auto rounded-md px-3 py-2 text-center text-white transition-colors hover:bg-gray-100 hover:text-gray-900 md:inline-block'
 							}`}
+							onClick={() => isMenuOpen = false}
 						/>
 					{/each}
 				</div>
@@ -106,6 +107,7 @@
 										? 'rounded-md bg-[#5865F2] px-6 py-2 text-sm font-medium text-white transition-colors hover:bg-[#4752C4] flex items-center justify-center'
 										: 'block w-auto rounded-md px-3 py-2 text-center text-white transition-colors hover:bg-gray-100 hover:text-gray-900 md:inline-block'
 							}`}
+							onClick={() => isMenuOpen = false}
 						/>
 					{/each}
 				</div>
