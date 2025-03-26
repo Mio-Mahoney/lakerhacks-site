@@ -11,6 +11,6 @@
 	/>
 </svelte:head>
 
-<main class="min-h-full bg-white">
+<main class="min-h-full bg-[#0B111F]">
 	{@render children()}
 </main>
