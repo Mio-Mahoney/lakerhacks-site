@@ -13,6 +13,16 @@
 	import Image1 from '$lib/assets/image1.png';
 	import Image2 from '$lib/assets/image2.png';
 	import HarrisonImage from '$lib/assets/harrisonrussell.png';
+	import SamanthaImage from '$lib/assets/samanthabrown.png';
+	import HamadiImage from '$lib/assets/hamadibelghachi.png';
+	import HenryImage from '$lib/assets/henryrose.png';
+	import EliFereiraImage from '$lib/assets/elifereira.png';
+	import MioImage from '$lib/assets/miomahoney.png';
+	import WilliamImage from '$lib/assets/williamstone.png';
+	import EliDeCampoImage from '$lib/assets/elidecampo.png';
+	import JosephImage from '$lib/assets/josephvega.png';
+	import RileyImage from '$lib/assets/rileynixon.png';
+	import LandonImage from '$lib/assets/landonrusco.png';
 
 	// For responsive navigation
 	let isMenuOpen: boolean = false;
@@ -176,7 +186,7 @@
 			</div>
 
 			<!-- Promo video section -->
-			<video class="mx-auto aspect-video w-full max-w-[1000px] rounded-xl" controls>
+			<video class="mx-auto aspect-video w-full max-w-[1000px] rounded-xl shadow-[0_0_20px_rgba(0,0,0,0.3)]" controls>
 				<source src={Video} type="video/mp4" />
 				<track kind="captions" src={Captions} srclang="en" label="English" default />
 				Your browser does not support the video tag.
@@ -190,11 +200,7 @@
 			<h2 class="text-[#9CC747]">About</h2>
 			<div class="flex flex-col  rounded-xl bg-[#0B111F]/50 backdrop-blur-sm border border-white/10 p-4 xl:p-8">
 				<p class="font-normal text-white/80 text-sm xl:text-[24px]">
-					LakerHacks is SUNY Oswego's annual hackathon, bringing together students, innovators, and
-					tech enthusiasts. It offers 24 hours of coding, mentorship, and collaboration. Whether
-					you're a beginner or an experienced developer, this event is your chance to build impactful
-					projects, connect with like-minded peers, and compete for exciting prizes. Join us at
-					LakerHacks and turn your ideas into reality!
+					Launching this spring, LakerHacks is SUNY Oswego's student-led annual hackathon—a multi-day event where students design, code, and innovate. With hands-on workshops, talks from industry professionals, and fun activities, it's the perfect place to learn, create, and connect.
 				</p>
 			</div>
 		</div>
@@ -219,7 +225,7 @@
 		<div class="mx-auto flex max-w-[1000px] flex-col gap-[60px]">
 			<div class="flex flex-col gap-[50px] xl:flex-row-reverse">
 				<div class="w-full xl:w-1/2 xl:h-full">
-					<img src={Image1} alt="Image 1" class="w-full h-full rounded-xl object-cover" />
+					<img src={Image1} alt="Students collaborating at a hackathon" class="w-full h-full rounded-xl object-cover shadow-[0_0_20px_rgba(0,0,0,0.3)]" />
 				</div>
 				<div class="flex w-full xl:w-1/2 flex-col justify-center gap-8 text-center xl:text-left">
 					<div class="flex flex-col gap-4">
@@ -243,7 +249,7 @@
 
 			<div class="flex flex-col gap-[50px] xl:flex-row">
 				<div class="w-full xl:w-1/2 xl:h-full">
-					<img src={Image2} alt="Image 2" class="w-full h-full rounded-xl object-cover" />
+					<img src={Image2} alt="Students presenting their hackathon project" class="w-full h-full rounded-xl object-cover shadow-[0_0_20px_rgba(0,0,0,0.3)]" />
 				</div>
 				<div class="flex w-full xl:w-1/2 flex-col justify-center gap-8 text-center xl:text-left">
 					<div class="flex flex-col gap-4">
@@ -313,14 +319,17 @@
 			<h2 class="text-[#9CC747]">Meet Our Team</h2>
 			<div class="flex w-full flex-wrap gap-[20px]">
 				<TeamItem name="Harrison Russell" role="Organizer" linkedinUrl="https://www.linkedin.com/in/harrisonrussell/" image={HarrisonImage} />
-				<TeamItem name="Eli Fereira" role="Organizer" linkedinUrl="https://www.linkedin.com/in/eli-fereira/" />
-				<TeamItem name="Mio Mahoney" role="Organizer" linkedinUrl="https://www.linkedin.com/in/mio-mahoney/" />
-				<TeamItem name="Samantha Brown" role="Organizer" linkedinUrl="https://www.linkedin.com/in/samanthajeanneb/" />
-				<TeamItem name="Hamadi Belghachi" role="Organizer" linkedinUrl="https://www.linkedin.com/in/hamadidesign/" />
-				<TeamItem name="William Stone" role="Organizer" linkedinUrl="https://www.linkedin.com/in/william-s-stone/" />
-				<TeamItem name="Eli DeCampo" role="Organizer" linkedinUrl="https://www.linkedin.com/in/eli-decampo-a28a27274/" />
-				<TeamItem name="Landon Rusco" role="Organizer" linkedinUrl="https://www.linkedin.com/in/" />
-				<TeamItem name="Joseph Vega" role="Organizer" linkedinUrl="https://www.linkedin.com/in/jvega2/" />
+				<TeamItem name="Eli Fereira" role="Organizer" linkedinUrl="https://www.linkedin.com/in/eli-fereira/" image={EliFereiraImage} />
+				<TeamItem name="Mio Mahoney" role="Organizer" linkedinUrl="https://www.linkedin.com/in/mio-mahoney/" image={MioImage} />
+				<TeamItem name="Samantha Brown" role="Organizer" linkedinUrl="https://www.linkedin.com/in/samanthajeanneb/" image={SamanthaImage} />
+				<TeamItem name="Hamadi Belghachi" role="Organizer" linkedinUrl="https://www.linkedin.com/in/hamadidesign/" image={HamadiImage} />
+				<TeamItem name="William Stone" role="Organizer" linkedinUrl="https://www.linkedin.com/in/william-s-stone/" image={WilliamImage} />
+				<TeamItem name="Eli DeCampo" role="Organizer" linkedinUrl="https://www.linkedin.com/in/eli-decampo-a28a27274/" image={EliDeCampoImage} />
+				<TeamItem name="Landon Rusco" role="Organizer" linkedinUrl="https://www.linkedin.com/in/" image={LandonImage} />
+				<TeamItem name="Joseph Vega" role="Organizer" linkedinUrl="https://www.linkedin.com/in/jvega2/" image={JosephImage} />
+				<TeamItem name="Henry Rose" role="Organizer" linkedinUrl="https://www.linkedin.com/in/hjrose29/" image={HenryImage} />
+				<TeamItem name="Riley Nixon" role="Organizer" linkedinUrl="https://www.linkedin.com/in/riley-o-nixon/" image={RileyImage} />
+				<TeamItem name="Erica Daquin" role="Organizer" linkedinUrl="https://www.linkedin.com/in/erica-daquin-575299264/" />
 			</div>
 		</div>
 	</section>
