@@ -23,6 +23,7 @@
 	import JosephImage from '$lib/assets/josephvega.png';
 	import RileyImage from '$lib/assets/rileynixon.png';
 	import LandonImage from '$lib/assets/landonrusco.png';
+	import JackImage from '$lib/assets/jackgallagher.png';
 
 	// For responsive navigation
 	let isMenuOpen: boolean = false;
@@ -295,11 +296,11 @@
 							>
 								<path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
 							</svg>
-							<span class="text-lg xl:text-2xl">{item.question}</span>
+							<span class="text-base xl:text-lg">{item.question}</span>
 						</button>
 						{#if item.expanded}
 							<div transition:slide={{ duration: 300 }}>
-								<p class="pt-[0px] pr-[12px] xl:pr-[20px] pb-[12px] xl:pb-[20px] pl-[40px] xl:pl-[50.28px] text-left text-base xl:text-lg opacity-80">{item.answer}</p>
+								<p class="pt-[0px] pr-[12px] xl:pr-[20px] pb-[12px] xl:pb-[20px] pl-[40px] xl:pl-[50.28px] text-left text-sm xl:text-base opacity-70">{item.answer}</p>
 							</div>
 							{#if index < faqItems.length - 1}
 								<div class="mx-[20px] h-[1px] bg-gray-300/20"></div>
@@ -325,11 +326,11 @@
 				<TeamItem name="Hamadi Belghachi" role="Organizer" linkedinUrl="https://www.linkedin.com/in/hamadidesign/" image={HamadiImage} />
 				<TeamItem name="William Stone" role="Organizer" linkedinUrl="https://www.linkedin.com/in/william-s-stone/" image={WilliamImage} />
 				<TeamItem name="Eli DeCampo" role="Organizer" linkedinUrl="https://www.linkedin.com/in/eli-decampo-a28a27274/" image={EliDeCampoImage} />
-				<TeamItem name="Landon Rusco" role="Organizer" linkedinUrl="https://www.linkedin.com/in/" image={LandonImage} />
+				<TeamItem name="Landon Rusco" role="Organizer" linkedinUrl="https://www.linkedin.com/in/landon-rusco-3004a4358/" image={LandonImage} />
 				<TeamItem name="Joseph Vega" role="Organizer" linkedinUrl="https://www.linkedin.com/in/jvega2/" image={JosephImage} />
 				<TeamItem name="Henry Rose" role="Organizer" linkedinUrl="https://www.linkedin.com/in/hjrose29/" image={HenryImage} />
 				<TeamItem name="Riley Nixon" role="Organizer" linkedinUrl="https://www.linkedin.com/in/riley-o-nixon/" image={RileyImage} />
-				<TeamItem name="Erica Daquin" role="Organizer" linkedinUrl="https://www.linkedin.com/in/erica-daquin-575299264/" />
+				<TeamItem name="Jack Gallagher" role="Organizer" linkedinUrl="https://www.linkedin.com/in/jack-gallagher-/" image={JackImage} />
 			</div>
 		</div>
 	</section>

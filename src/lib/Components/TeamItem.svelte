@@ -8,7 +8,7 @@
 </script>
 
 <div class="flex flex-row gap-2 sm:gap-4 rounded-xl bg-[#0B111F]/50 backdrop-blur-sm border border-white/10 p-3 sm:p-5 transition-all duration-300 hover:bg-[#0B111F]/90 hover:border-[#9CC747]/50 hover:shadow-md hover:shadow-[#9CC747]/5 w-full sm:w-[calc(50%-10px)] lg:w-[calc(33.33%-14px)]">
-	<div class="h-10 w-10 sm:h-12 sm:w-12 flex-shrink-0 rounded-full overflow-hidden">
+	<div class="h-12 w-12 flex-shrink-0 rounded-full overflow-hidden">
 		{#if image}
 			<img src={image} alt={`${name}'s profile picture`} class="h-full w-full object-cover" />
 		{:else}
@@ -17,7 +17,7 @@
 	</div>
 	<div class="flex flex-col justify-center min-w-0">
 		<div class="flex items-center gap-2">
-			<p class="text-left text-base sm:text-lg font-bold text-[#FFE34F] truncate">{name}</p>
+			<p class="text-left text-base font-bold text-[#FFE34F] truncate">{name}</p>
 			{#if linkedinUrl}
 				<a href={linkedinUrl} target="_blank" rel="noopener noreferrer" class="text-white/60 hover:text-white/80 transition-colors" aria-label={`${name}'s LinkedIn profile`}>
 					<svg class="w-4 h-4 sm:w-5 sm:h-5" viewBox="0 0 24 24" fill="currentColor">
@@ -26,6 +26,6 @@
 				</a>
 			{/if}
 		</div>
-		<p class="text-left text-xs sm:text-sm text-white/80">{role}</p>
+		<span class="text-left text-[14px] text-white/80">{role}</span>
 	</div>
 </div>
