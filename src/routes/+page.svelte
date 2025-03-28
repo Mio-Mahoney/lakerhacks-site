@@ -24,6 +24,8 @@
 	import RileyImage from '$lib/assets/rileynixon.png';
 	import LandonImage from '$lib/assets/landonrusco.png';
 	import JackImage from '$lib/assets/jackgallagher.png';
+	import Plyr from 'plyr';
+	import 'plyr/dist/plyr.css';
 
 	// For responsive navigation
 	let isMenuOpen: boolean = false;
@@ -48,7 +50,76 @@
 	onMount(() => {
 		updateCountdown();
 		const timer = setInterval(updateCountdown, 1000);
-		return () => clearInterval(timer);
+
+		// Initialize Plyr
+		const player = new Plyr('#video-player', {
+			controls: [
+				'play-large',
+				'play',
+				'progress',
+				'current-time',
+				'mute',
+				'volume',
+				'captions',
+				'settings',
+				'pip',
+				'fullscreen'
+			],
+			hideControls: true,
+			keyboard: { focused: true, global: true },
+			fullscreen: { 
+				enabled: true,
+				iosNative: true // Use native iOS fullscreen
+			},
+			clickToPlay: true,
+			ratio: '16:9'
+		});
+		
+		// For better mobile handling
+		const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+		
+		// Handle fullscreen on mobile when playing
+		if (isMobile) {
+			player.on('play', () => {
+				try {
+					// Request fullscreen when user plays on mobile
+					const container = player.elements.container;
+					if (container) {
+						if (container.requestFullscreen) {
+							container.requestFullscreen();
+						} else if ((container as any).webkitRequestFullscreen) {
+							(container as any).webkitRequestFullscreen();
+						} else if ((container as any).mozRequestFullScreen) {
+							(container as any).mozRequestFullScreen();
+						} else if ((container as any).msRequestFullscreen) {
+							(container as any).msRequestFullscreen();
+						}
+					}
+				} catch (error) {
+					console.log('Fullscreen request failed:', error);
+				}
+			});
+		}
+		
+		// Add video dimming effect when not playing
+		const videoContainer = document.querySelector('.video-container');
+		player.on('playing', () => {
+			videoContainer?.classList.remove('video-paused');
+			videoContainer?.classList.add('video-playing');
+		});
+		
+		player.on('pause', () => {
+			videoContainer?.classList.remove('video-playing');
+			videoContainer?.classList.add('video-paused');
+		});
+		
+		// Set initial state to paused/dimmed
+		videoContainer?.classList.add('video-paused');
+
+		return () => {
+			clearInterval(timer);
+			player.destroy();
+		};
 	});
 
 	function toggleMenu(): void {
@@ -187,11 +258,13 @@
 			</div>
 
 			<!-- Promo video section -->
-			<video class="mx-auto aspect-video w-full max-w-[1000px] rounded-xl shadow-[0_0_20px_rgba(0,0,0,0.3)]" controls>
-				<source src={Video} type="video/mp4" />
-				<track kind="captions" src={Captions} srclang="en" label="English" default />
-				Your browser does not support the video tag.
-			</video>
+			<div class="video-container mx-auto aspect-video w-full max-w-[1000px] rounded-xl shadow-[0_0_20px_rgba(0,0,0,0.3)] overflow-hidden relative">
+				<video id="video-player" class="plyr__video-embed" playsinline>
+					<source src={Video} type="video/mp4" />
+					<track kind="captions" src={Captions} srclang="en" label="English" default />
+					Your browser does not support the video tag.
+				</video>
+			</div>
 		</div>
 	</section>
 
@@ -420,5 +493,30 @@
 		cursor: pointer;
 	}
 
+	/* Plyr custom styles */
+	:global(.plyr) {
+		--plyr-color-main: #D4563F;
+		--plyr-video-background: #0B111F;
+		border-radius: 0.75rem;
+	}
 
+	:global(.plyr--video) {
+		border-radius: 0.75rem;
+		overflow: hidden;
+	}
+	
+	/* Video dimming effect styles */
+	.video-container {
+		transition: filter 0.5s ease-in-out;
+	}
+	
+	.video-paused :global(video) {
+		filter: brightness(0.65) saturate(0.8);
+		transition: filter 0.5s ease-in-out;
+	}
+	
+	.video-playing :global(video) {
+		filter: brightness(1) saturate(1);
+		transition: filter 0.5s ease-in-out;
+	}
 </style>
