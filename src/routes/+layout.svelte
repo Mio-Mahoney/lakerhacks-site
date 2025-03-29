@@ -7,7 +7,7 @@
 	<title>LakerHacks - SUNY Oswego's Annual Hackathon</title>
 	<meta
 		name="description"
-		content="Join LakerHacks, SUNY Oswego's annual hackathon bringing together students, innovators, and tech enthusiasts."
+		content="Join LakerHacks, SUNY Oswego's annual hackathon. Collaborate with students, network with professionals, and compete for prizes."
 	/>
 </svelte:head>
 
