@@ -24,6 +24,7 @@
 	import RileyImage from '$lib/assets/rileynixon.png';
 	import LandonImage from '$lib/assets/landonrusco.png';
 	import JackImage from '$lib/assets/jackgallagher.png';
+	import JessImage from '$lib/assets/jessmetzner.png';
 	import Plyr from 'plyr';
 	import 'plyr/dist/plyr.css';
 
@@ -404,6 +405,7 @@
 				<TeamItem name="Henry Rose" role="Organizer" linkedinUrl="https://www.linkedin.com/in/hjrose29/" image={HenryImage} />
 				<TeamItem name="Riley Nixon" role="Organizer" linkedinUrl="https://www.linkedin.com/in/riley-o-nixon/" image={RileyImage} />
 				<TeamItem name="Jack Gallagher" role="Organizer" linkedinUrl="https://www.linkedin.com/in/jack-gallagher-/" image={JackImage} />
+				<TeamItem name="Jess Metzner" role="Organizer" linkedinUrl="https://www.linkedin.com/in/jessica-metzner-a0033a1a2/" image={JessImage} />
 			</div>
 		</div>
 	</section>
