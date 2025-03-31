@@ -23,7 +23,7 @@
 		<iframe 
 			loading="lazy" 
 			class="absolute w-full h-full top-0 left-0" 
-			src="https://www.canva.com/design/DAGjRb98rrU/yjs0HQPsoI5kxb1Q0_r5wQ/view?embed" 
+            src="https://www.canva.com/design/DAGjR2YZHyo/_BcygR-hW3YWwrW-_mctQA/view?embed"
 			allowfullscreen="allowfullscreen" 
 			allow="fullscreen">
 		</iframe>
@@ -44,12 +44,12 @@
 		width: 43.5%;
 	}
 	.aspect-h-9 {
-		padding-top: 56.25%; 
+		padding-top: 102.5%; 
 	}
 
 	@media (max-width: 640px) {
 		.aspect-w-16.aspect-h-9 {
-			padding-top: 130%; 
+			padding-top: 230%; 
 			width: 100%;
 			max-width: 100%;
 		}
