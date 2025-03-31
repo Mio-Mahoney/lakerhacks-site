@@ -4,6 +4,7 @@
 	import NavItem from './NavItem.svelte';
 	import NavButton from './NavButton.svelte';
 	import Logo from '$lib/assets/logo.png';
+	import { browser } from '$app/environment';
 
 	const { navItems } = $props();
 
@@ -16,6 +17,8 @@
 
 	// Close menu when clicking outside
 	onMount(() => {
+		if (!browser) return;
+
 		const handleClickOutside = (event: MouseEvent): void => {
 			const target = event.target as HTMLElement;
 			// Only close if clicking outside both the nav and the toggle button
@@ -31,7 +34,7 @@
 		document.addEventListener('click', handleClickOutside);
 
 		return () => {
-			document.removeEventListener('click', handleClickOutside);
+			if (browser) document.removeEventListener('click', handleClickOutside);
 		};
 	});
 </script>
