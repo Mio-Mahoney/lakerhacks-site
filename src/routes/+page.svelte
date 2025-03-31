@@ -69,14 +69,45 @@
 				'pip',
 				'fullscreen'
 			],
-			hideControls: true,
+			hideControls: false,
+			tooltips: { controls: true, seek: true },
 			keyboard: { focused: true, global: true },
 			fullscreen: { 
 				enabled: true,
 				iosNative: true // Use native iOS fullscreen
 			},
 			clickToPlay: true,
-			ratio: '16:9'
+			ratio: '16:9',
+			loadSprite: true,
+			resetOnEnd: true, // Reset to start when video ends
+			debug: true, // Enable debug mode temporarily to help diagnose issues
+			previewThumbnails: {
+				enabled: true,
+				src: Video
+			},
+			captions: {
+				active: false,
+				language: 'en',
+				update: false
+			}
+		});
+
+		// Force load video metadata when player is ready
+		player.on('ready', () => {
+			console.log('Player is ready');
+			const video = document.querySelector('#video-player') as HTMLVideoElement;
+			if (video) {
+				// Force load first frame
+				video.currentTime = 0.01;
+				setTimeout(() => {
+					video.currentTime = 0;
+				}, 100);
+			}
+		});
+
+		// Log any errors
+		player.on('error', (error) => {
+			console.error('Plyr error:', error);
 		});
 		
 		// For better mobile handling
@@ -260,11 +291,18 @@
 
 			<!-- Promo video section -->
 			<div class="video-container mx-auto aspect-video w-full max-w-[1000px] rounded-xl shadow-[0_0_20px_rgba(0,0,0,0.3)] overflow-hidden relative">
-				<video id="video-player" class="plyr__video-embed" playsinline>
-					<source src={Video} type="video/mp4" />
-					<track kind="captions" src={Captions} srclang="en" label="English" default />
-					Your browser does not support the video tag.
-				</video>
+				<div class="plyr__video-wrapper">
+					<video 
+						id="video-player" 
+						playsinline 
+						preload="auto"
+						crossorigin="anonymous"
+					>
+						<source src={Video} type="video/mp4" />
+						<track kind="captions" src={Captions} srclang="en" label="English" />
+						Your browser does not support the video tag.
+					</video>
+				</div>
 			</div>
 		</div>
 	</section>
@@ -286,10 +324,18 @@
 		<div class="mx-auto flex max-w-[1000px] flex-col gap-[40px]">
 			<h2 class="text-[#9CC747]">Sponsors</h2>
 			<div class="flex flex-wrap justify-center gap-[40px]">
-				<img src={CSALogo} alt="CSA Logo" class="h-[100px] w-auto" />
-				<img src={WonzonesLogo} alt="Wonzones Logo" class="h-[100px] w-auto" />
-				<img src={HCIOLogo} alt="HCIO Logo" class="h-[100px] w-auto" />
-				<img src={CSTEPLogo} alt="CSTEP Logo" class="h-[100px] w-auto" />
+				<div class="w-[200px] flex justify-center">
+					<img src={CSALogo} alt="CSA Logo" class="h-[100px] w-auto" />
+				</div>
+				<div class="w-[200px] flex justify-center">
+					<img src={WonzonesLogo} alt="Wonzones Logo" class="h-[100px] w-auto" />
+				</div>
+				<div class="w-[200px] flex justify-center">
+					<img src={HCIOLogo} alt="HCIO Logo" class="h-[100px] w-auto" />
+				</div>
+				<div class="w-[200px] flex justify-center">
+					<img src={CSTEPLogo} alt="CSTEP Logo" class="h-[100px] w-auto" />
+				</div>
 			</div>
 			<p class="text-white/80">Looking to sponsor? Email us at <a href="mailto:lakerhacks@oswego.edu" class="text-[#D4563F] hover:underline">lakerhacks@oswego.edu</a> for more details!</p>
 		</div>
@@ -516,11 +562,29 @@
 	:global(.plyr--video) {
 		border-radius: 0.75rem;
 		overflow: hidden;
+		height: 100%;
+	}
+
+	:global(.plyr__video-wrapper) {
+		height: 100%;
+		width: 100%;
+	}
+
+	:global(.plyr__control--overlaid) {
+		background: var(--plyr-color-main);
+	}
+
+	:global(.plyr--video .plyr__controls) {
+		background: linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.5));
+		padding: 20px;
 	}
 	
 	/* Video dimming effect styles */
 	.video-container {
 		transition: filter 0.5s ease-in-out;
+		position: relative;
+		width: 100%;
+		height: 100%;
 	}
 	
 	.video-paused :global(video) {
