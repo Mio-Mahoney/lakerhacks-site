@@ -26,6 +26,7 @@
 	import JackImage from '$lib/assets/jackgallagher.png';
 	import Plyr from 'plyr';
 	import 'plyr/dist/plyr.css';
+	import { browser } from '$app/environment';
 
 	// For responsive navigation
 	let isMenuOpen: boolean = false;
@@ -48,6 +49,8 @@
 	}
 
 	onMount(() => {
+		if (!browser) return;
+
 		updateCountdown();
 		const timer = setInterval(updateCountdown, 1000);
 
@@ -116,9 +119,26 @@
 		// Set initial state to paused/dimmed
 		videoContainer?.classList.add('video-paused');
 
+		const handleClickOutside = (event: MouseEvent): void => {
+			const target = event.target as HTMLElement;
+			// Only close if clicking outside both the nav and the toggle button
+			if (
+				isMenuOpen &&
+				!target.closest('nav') &&
+				!target.closest('button[aria-label="Toggle menu"]')
+			) {
+				isMenuOpen = false;
+			}
+		};
+
+		document.addEventListener('click', handleClickOutside);
+
 		return () => {
-			clearInterval(timer);
-			player.destroy();
+			if (browser) {
+				document.removeEventListener('click', handleClickOutside);
+				clearInterval(timer);
+				player.destroy();
+			}
 		};
 	});
 
@@ -177,27 +197,6 @@
 		// Toggle the clicked FAQ
 		faqItems[index].expanded = !faqItems[index].expanded;
 	}
-
-	// Close menu when clicking outside
-	onMount(() => {
-		const handleClickOutside = (event: MouseEvent): void => {
-			const target = event.target as HTMLElement;
-			// Only close if clicking outside both the nav and the toggle button
-			if (
-				isMenuOpen &&
-				!target.closest('nav') &&
-				!target.closest('button[aria-label="Toggle menu"]')
-			) {
-				isMenuOpen = false;
-			}
-		};
-
-		document.addEventListener('click', handleClickOutside);
-
-		return () => {
-			document.removeEventListener('click', handleClickOutside);
-		};
-	});
 </script>
 
 <svelte:head>
