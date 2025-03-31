@@ -27,6 +27,7 @@
 	import JessImage from '$lib/assets/jessmetzner.png';
 	import Plyr from 'plyr';
 	import 'plyr/dist/plyr.css';
+	import { browser } from '$app/environment';
 
 	// For responsive navigation
 	let isMenuOpen: boolean = false;
@@ -49,6 +50,8 @@
 	}
 
 	onMount(() => {
+		if (!browser) return;
+
 		updateCountdown();
 		const timer = setInterval(updateCountdown, 1000);
 
@@ -117,9 +120,26 @@
 		// Set initial state to paused/dimmed
 		videoContainer?.classList.add('video-paused');
 
+		const handleClickOutside = (event: MouseEvent): void => {
+			const target = event.target as HTMLElement;
+			// Only close if clicking outside both the nav and the toggle button
+			if (
+				isMenuOpen &&
+				!target.closest('nav') &&
+				!target.closest('button[aria-label="Toggle menu"]')
+			) {
+				isMenuOpen = false;
+			}
+		};
+
+		document.addEventListener('click', handleClickOutside);
+
 		return () => {
-			clearInterval(timer);
-			player.destroy();
+			if (browser) {
+				document.removeEventListener('click', handleClickOutside);
+				clearInterval(timer);
+				player.destroy();
+			}
 		};
 	});
 
@@ -129,10 +149,11 @@
 
 	const registrationURL = 'https://forms.gle/uqoj1GAksMGaDaoNA';
 	const discordURL = 'https://discord.gg/GJrP3cQt2x';
+	const scheduleURL = 'https://docs.google.com/document/d/1r5AaIp5RkBok8eb7P_FQI4Kbtw61lSyn7mpS82NYmII/edit?usp=sharing'
 
 	const navItems: NavItem[] = [
 		{ id: 'about', label: 'About', href: '#about' },
-		{ id: 'schedule', label: 'Schedule', href: 'https://docs.google.com/document/d/1r5AaIp5RkBok8eb7P_FQI4Kbtw61lSyn7mpS82NYmII/edit?usp=sharing' },
+		{ id: 'schedule', label: 'Schedule', href: scheduleURL },
 		{ id: 'faq', label: 'FAQ', href: '#faq' },
 		{ id: 'team', label: 'Team', href: '#team' },
 		{ id: 'discord', label: 'Join Our Discord', href: discordURL },
@@ -177,27 +198,6 @@
 		// Toggle the clicked FAQ
 		faqItems[index].expanded = !faqItems[index].expanded;
 	}
-
-	// Close menu when clicking outside
-	onMount(() => {
-		const handleClickOutside = (event: MouseEvent): void => {
-			const target = event.target as HTMLElement;
-			// Only close if clicking outside both the nav and the toggle button
-			if (
-				isMenuOpen &&
-				!target.closest('nav') &&
-				!target.closest('button[aria-label="Toggle menu"]')
-			) {
-				isMenuOpen = false;
-			}
-		};
-
-		document.addEventListener('click', handleClickOutside);
-
-		return () => {
-			document.removeEventListener('click', handleClickOutside);
-		};
-	});
 </script>
 
 <svelte:head>
@@ -248,7 +248,7 @@
 						Register Now
 					</a>
 					<a
-						href="https://docs.google.com/document/d/1r5AaIp5RkBok8eb7P_FQI4Kbtw61lSyn7mpS82NYmII/edit?usp=sharing"
+						href={scheduleURL}
 						target="_blank"
 						rel="noopener noreferrer"
 						class="rounded-md bg-[#0B111F] border border-[#D4563F] px-6 py-2 text-sm font-medium text-[#D4563F] transition-all hover:bg-[#050a14]"
@@ -335,7 +335,7 @@
 					</div>
 					<div class="flex justify-center xl:justify-start">
 						<a
-							href="https://docs.google.com/document/d/1r5AaIp5RkBok8eb7P_FQI4Kbtw61lSyn7mpS82NYmII/edit?usp=sharing"
+							href={scheduleURL}
 							target="_blank"
 							rel="noopener noreferrer"
 							class="rounded-md bg-[#0B111F] border border-[#D4563F] px-6 py-2 text-sm font-medium text-[#D4563F] transition-all hover:bg-[#050a14]"
@@ -436,7 +436,7 @@
 				<h3 class="text-[#9CC747] font-semibold mb-4 text-lg">Quick Links</h3>
 				<ul class="space-y-2">
 					<li><a href="#about" class="text-white/80 hover:text-white transition-colors">About</a></li>
-					<li><a href="https://docs.google.com/document/d/1r5AaIp5RkBok8eb7P_FQI4Kbtw61lSyn7mpS82NYmII/edit?usp=sharing" target="_blank" rel="noopener noreferrer" class="text-white/80 hover:text-white transition-colors">Schedule</a></li>
+					<li><a href={scheduleURL} target="_blank" rel="noopener noreferrer" class="text-white/80 hover:text-white transition-colors">Schedule</a></li>
 					<li><a href="#faq" class="text-white/80 hover:text-white transition-colors">FAQ</a></li>
 					<li><a href="#team" class="text-white/80 hover:text-white transition-colors">Team</a></li>
 				</ul>
