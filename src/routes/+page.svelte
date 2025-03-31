@@ -149,15 +149,15 @@
 
 	const registrationURL = 'https://forms.gle/uqoj1GAksMGaDaoNA';
 	const discordURL = 'https://discord.gg/GJrP3cQt2x';
-	const scheduleURL = 'https://docs.google.com/document/d/1r5AaIp5RkBok8eb7P_FQI4Kbtw61lSyn7mpS82NYmII/edit?usp=sharing'
+	const scheduleURL = '/schedule';
 
 	const navItems: NavItem[] = [
-		{ id: 'about', label: 'About', href: '#about' },
-		{ id: 'schedule', label: 'Schedule', href: scheduleURL },
-		{ id: 'faq', label: 'FAQ', href: '#faq' },
-		{ id: 'team', label: 'Team', href: '#team' },
-		{ id: 'discord', label: 'Join Our Discord', href: discordURL },
-		{ id: 'register', label: 'Register Now', href: registrationURL }
+		{ id: 'about', label: 'About', href: '/#about' },
+		{ id: 'schedule', label: 'Schedule', href: '/schedule' },
+		{ id: 'faq', label: 'FAQ', href: '/#faq' },
+		{ id: 'team', label: 'Team', href: '/#team' },
+		{ id: 'discord', label: 'Join Our Discord', href: '/#discord' },
+		{ id: 'register', label: 'Register Now', href: '/#register' }
 	];
 
 	const faqItems: FAQItem[] = [
