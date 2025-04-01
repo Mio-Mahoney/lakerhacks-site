@@ -26,8 +26,6 @@
 	import LandonImage from '$lib/assets/landonrusco.png';
 	import JackImage from '$lib/assets/jackgallagher.png';
 	import JessImage from '$lib/assets/jessmetzner.png';
-	import Plyr from 'plyr';
-	import 'plyr/dist/plyr.css';
 	import { browser } from '$app/environment';
 
 	// For responsive navigation
@@ -38,6 +36,9 @@
 	let hours = 0;
 	let minutes = 0;
 	let seconds = 0;
+
+	let videoElement: HTMLVideoElement;
+	let isPlaying = false;
 
 	function updateCountdown() {
 		const targetDate = new Date('2025-04-19T10:00:00-04:00'); // 10:00 AM EST
@@ -50,107 +51,31 @@
 		seconds = Math.floor((difference % (1000 * 60)) / 1000);
 	}
 
+	async function togglePlay() {
+		if (videoElement) {
+			try {
+				if (isPlaying) {
+					await videoElement.pause();
+				} else {
+					await videoElement.play();
+				}
+			} catch (error) {
+				console.error('Error toggling video playback:', error);
+			}
+		}
+	}
+
 	onMount(() => {
 		if (!browser) return;
 
 		updateCountdown();
 		const timer = setInterval(updateCountdown, 1000);
 
-		// Initialize Plyr
-		const player = new Plyr('#video-player', {
-			controls: [
-				'play-large',
-				'play',
-				'progress',
-				'current-time',
-				'mute',
-				'volume',
-				'captions',
-				'settings',
-				'pip',
-				'fullscreen'
-			],
-			hideControls: false,
-			tooltips: { controls: true, seek: true },
-			keyboard: { focused: true, global: true },
-			fullscreen: { 
-				enabled: true,
-				iosNative: true // Use native iOS fullscreen
-			},
-			clickToPlay: true,
-			ratio: '16:9',
-			loadSprite: true,
-			resetOnEnd: true, // Reset to start when video ends
-			debug: true, // Enable debug mode temporarily to help diagnose issues
-			previewThumbnails: {
-				enabled: true,
-				src: Video
-			},
-			captions: {
-				active: false,
-				language: 'en',
-				update: false
-			}
-		});
-
-		// Force load video metadata when player is ready
-		player.on('ready', () => {
-			console.log('Player is ready');
-			const video = document.querySelector('#video-player') as HTMLVideoElement;
-			if (video) {
-				// Force load first frame
-				video.currentTime = 0.01;
-				setTimeout(() => {
-					video.currentTime = 0;
-				}, 100);
-			}
-		});
-
-		// Log any errors
-		player.on('error', (error) => {
-			console.error('Plyr error:', error);
-		});
-		
-		// For better mobile handling
-		const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
-		
-		// Handle fullscreen on mobile when playing
-		if (isMobile) {
-			player.on('play', () => {
-				try {
-					// Request fullscreen when user plays on mobile
-					const container = player.elements.container;
-					if (container) {
-						if (container.requestFullscreen) {
-							container.requestFullscreen();
-						} else if ((container as any).webkitRequestFullscreen) {
-							(container as any).webkitRequestFullscreen();
-						} else if ((container as any).mozRequestFullScreen) {
-							(container as any).mozRequestFullScreen();
-						} else if ((container as any).msRequestFullscreen) {
-							(container as any).msRequestFullscreen();
-						}
-					}
-				} catch (error) {
-					console.log('Fullscreen request failed:', error);
-				}
-			});
+		// Add video event listeners
+		if (videoElement) {
+			videoElement.addEventListener('play', () => isPlaying = true);
+			videoElement.addEventListener('pause', () => isPlaying = false);
 		}
-		
-		// Add video dimming effect when not playing
-		const videoContainer = document.querySelector('.video-container');
-		player.on('playing', () => {
-			videoContainer?.classList.remove('video-paused');
-			videoContainer?.classList.add('video-playing');
-		});
-		
-		player.on('pause', () => {
-			videoContainer?.classList.remove('video-playing');
-			videoContainer?.classList.add('video-paused');
-		});
-		
-		// Set initial state to paused/dimmed
-		videoContainer?.classList.add('video-paused');
 
 		const handleClickOutside = (event: MouseEvent): void => {
 			const target = event.target as HTMLElement;
@@ -170,7 +95,10 @@
 			if (browser) {
 				document.removeEventListener('click', handleClickOutside);
 				clearInterval(timer);
-				player.destroy();
+				if (videoElement) {
+					videoElement.removeEventListener('play', () => isPlaying = true);
+					videoElement.removeEventListener('pause', () => isPlaying = false);
+				}
 			}
 		};
 	});
@@ -282,18 +210,35 @@
 
 			<!-- Promo video section -->
 			<div class="video-container mx-auto aspect-video w-full max-w-[1000px] rounded-xl shadow-[0_0_20px_rgba(0,0,0,0.3)] overflow-hidden relative">
-				<div class="plyr__video-wrapper">
-					<video 
-						id="video-player" 
-						playsinline 
-						preload="auto"
-						crossorigin="anonymous"
+				<video 
+					bind:this={videoElement}
+					controls
+					playsinline 
+					preload="auto"
+					crossorigin="anonymous"
+					class="w-full h-full relative z-10"
+				>
+					<source src={Video} type="video/mp4" />
+					<track kind="captions" src={Captions} srclang="en" label="English" default />
+					Your browser does not support the video tag.
+				</video>
+				{#if !isPlaying}
+					<div 
+						class="absolute inset-0 bg-black/30 flex items-center justify-center z-20" 
+						on:click={togglePlay}
+						on:touchstart={togglePlay}
 					>
-						<source src={Video} type="video/mp4" />
-						<track kind="captions" src={Captions} srclang="en" label="English" />
-						Your browser does not support the video tag.
-					</video>
-				</div>
+						<button 
+							class="w-16 h-16 rounded-full bg-[#D4563F] flex items-center justify-center hover:bg-[#D4563F]/80 transition-colors cursor-pointer"
+							on:click={togglePlay}
+							on:touchstart={togglePlay}
+						>
+							<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-8 h-8 text-white">
+								<path d="M8 5v14l11-7z"/>
+							</svg>
+						</button>
+					</div>
+				{/if}
 			</div>
 		</div>
 	</section>
@@ -543,33 +488,6 @@
 		cursor: pointer;
 	}
 
-	/* Plyr custom styles */
-	:global(.plyr) {
-		--plyr-color-main: #D4563F;
-		--plyr-video-background: #0B111F;
-		border-radius: 0.75rem;
-	}
-
-	:global(.plyr--video) {
-		border-radius: 0.75rem;
-		overflow: hidden;
-		height: 100%;
-	}
-
-	:global(.plyr__video-wrapper) {
-		height: 100%;
-		width: 100%;
-	}
-
-	:global(.plyr__control--overlaid) {
-		background: var(--plyr-color-main);
-	}
-
-	:global(.plyr--video .plyr__controls) {
-		background: linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.5));
-		padding: 20px;
-	}
-	
 	/* Video dimming effect styles */
 	.video-container {
 		transition: filter 0.5s ease-in-out;
@@ -578,13 +496,15 @@
 		height: 100%;
 	}
 	
-	.video-paused :global(video) {
-		filter: brightness(0.65) saturate(0.8);
-		transition: filter 0.5s ease-in-out;
+	video {
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
 	}
-	
-	.video-playing :global(video) {
-		filter: brightness(1) saturate(1);
-		transition: filter 0.5s ease-in-out;
+
+	/* Ensure video controls stay above the overlay */
+	video::-webkit-media-controls {
+		position: relative;
+		z-index: 30;
 	}
 </style>
