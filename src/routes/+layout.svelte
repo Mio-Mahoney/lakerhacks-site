@@ -9,7 +9,7 @@
 	const scheduleURL = base + '/schedule';
 
 	const navItems: NavItem[] = [
-		{ id: 'about', label: 'About', href: './#about' },
+		{ id: 'about', label: 'About', href: base + '/#about' },
 		{ id: 'schedule', label: 'Schedule', href: scheduleURL },
 		{ id: 'faq', label: 'FAQ', href: base + '/#faq' },
 		{ id: 'team', label: 'Team', href: base + '/#team' },
