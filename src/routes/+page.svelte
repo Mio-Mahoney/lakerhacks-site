@@ -1,6 +1,7 @@
 <script lang="ts">
 	import Navbar from '$lib/Components/Navbar.svelte';
 	import { onMount } from 'svelte';
+	import { base } from '$app/paths';
 	import { slide } from 'svelte/transition';
 	import Video from '$lib/assets/lakerhacks-promo.mp4';
 	import Logo from '$lib/assets/logo.png';
@@ -149,16 +150,8 @@
 
 	const registrationURL = 'https://forms.gle/uqoj1GAksMGaDaoNA';
 	const discordURL = 'https://discord.gg/GJrP3cQt2x';
-	const scheduleURL = '/schedule';
+	const scheduleURL = base + '/schedule';
 
-	const navItems: NavItem[] = [
-		{ id: 'about', label: 'About', href: '/#about' },
-		{ id: 'schedule', label: 'Schedule', href: '/schedule' },
-		{ id: 'faq', label: 'FAQ', href: '/#faq' },
-		{ id: 'team', label: 'Team', href: '/#team' },
-		{ id: 'discord', label: 'Join Our Discord', href: '/#discord' },
-		{ id: 'register', label: 'Register Now', href: '/#register' }
-	];
 
 	const faqItems: FAQItem[] = [
 		{
@@ -208,9 +201,7 @@
 	/>
 </svelte:head>
 
-<Navbar {navItems} />
-
-<main class="flex flex-col text-white">
+<div class="flex flex-col text-white graphic">
 	<!-- Hero Section -->
 	<section id="home" class="mx-auto w-full px-4 py-[100px] text-center ">
 		<div class="mx-auto flex w-full max-w-[1000px] flex-col gap-[60px]">
@@ -426,7 +417,7 @@
 			</div>
 		</div>
 	</section>
-</main>
+</div>
 
 <!-- Footer Section -->
 <footer class="bg-[#0B111F] border-t border-gray-800 px-[20px] py-[40px] text-white w-full">
@@ -480,7 +471,7 @@
 		scroll-behavior: smooth;
 	}
 
-	main {
+	div.graphic {
 		background-image: url('/src/lib/assets/background-graphic.png');
 		background-size: auto;
 		background-repeat: no-repeat;
