@@ -1,5 +1,5 @@
 <script>
-	import Navbar from '$lib/Components/Navbar.svelte';
+	import scheduleImg from '$lib/assets/schedule-export.png';
 </script>
 
 <svelte:head>
@@ -8,7 +8,7 @@
 </svelte:head>
 
 <main class="flex min-h-screen flex-col items-center bg-[#0B111F]">
-	<div class="aspect-w-16 aspect-h-9 relative w-full">
+	<div class="relative hidden w-full md:block">
 		<iframe
 			loading="lazy"
 			class="absolute top-0 left-0 h-full w-full"
@@ -17,6 +17,10 @@
 			allow="fullscreen"
 		>
 		</iframe>
+	</div>
+
+	<div class="relative block w-full md:hidden">
+		<img src={scheduleImg} alt="schedule" />
 	</div>
 
 	<a
