@@ -149,15 +149,15 @@
 
 	const registrationURL = 'https://forms.gle/uqoj1GAksMGaDaoNA';
 	const discordURL = 'https://discord.gg/GJrP3cQt2x';
-	const scheduleURL = 'https://docs.google.com/document/d/1r5AaIp5RkBok8eb7P_FQI4Kbtw61lSyn7mpS82NYmII/edit?usp=sharing'
+	const scheduleURL = '/schedule';
 
 	const navItems: NavItem[] = [
-		{ id: 'about', label: 'About', href: '#about' },
-		{ id: 'schedule', label: 'Schedule', href: scheduleURL },
-		{ id: 'faq', label: 'FAQ', href: '#faq' },
-		{ id: 'team', label: 'Team', href: '#team' },
-		{ id: 'discord', label: 'Join Our Discord', href: discordURL },
-		{ id: 'register', label: 'Register Now', href: registrationURL }
+		{ id: 'about', label: 'About', href: '/#about' },
+		{ id: 'schedule', label: 'Schedule', href: '/schedule' },
+		{ id: 'faq', label: 'FAQ', href: '/#faq' },
+		{ id: 'team', label: 'Team', href: '/#team' },
+		{ id: 'discord', label: 'Join Our Discord', href: '/#discord' },
+		{ id: 'register', label: 'Register Now', href: '/#register' }
 	];
 
 	const faqItems: FAQItem[] = [
@@ -390,13 +390,13 @@
 
 	<!-- Meet Our Team Section -->
 	<section id="team" class="mx-auto w-full px-4 py-[100px] text-center">
-		<div class="mx-auto flex max-w-[1000px] flex-col  gap-[40px]">
+		<div class="mx-auto flex max-w-[1000px] flex-col gap-[40px]">
 			<h2 class="text-[#9CC747]">Meet Our Team</h2>
-			<div class="flex w-full flex-wrap gap-[20px]">
+			<div class="flex w-full flex-wrap justify-center gap-[20px]">
 				<TeamItem name="Harrison Russell" role="Organizer" linkedinUrl="https://www.linkedin.com/in/harrisonrussell/" image={HarrisonImage} />
-				<TeamItem name="Eli Fereira" role="Organizer" linkedinUrl="https://www.linkedin.com/in/eli-fereira/" image={EliFereiraImage} />
-				<TeamItem name="Mio Mahoney" role="Organizer" linkedinUrl="https://www.linkedin.com/in/mio-mahoney/" image={MioImage} />
 				<TeamItem name="Samantha Brown" role="Organizer" linkedinUrl="https://www.linkedin.com/in/samanthajeanneb/" image={SamanthaImage} />
+				<TeamItem name="Mio Mahoney" role="Organizer" linkedinUrl="https://www.linkedin.com/in/mio-mahoney/" image={MioImage} />
+				<TeamItem name="Eli Fereira" role="Organizer" linkedinUrl="https://www.linkedin.com/in/eli-fereira/" image={EliFereiraImage} />
 				<TeamItem name="Hamadi Belghachi" role="Organizer" linkedinUrl="https://www.linkedin.com/in/hamadidesign/" image={HamadiImage} />
 				<TeamItem name="William Stone" role="Organizer" linkedinUrl="https://www.linkedin.com/in/william-s-stone/" image={WilliamImage} />
 				<TeamItem name="Eli DeCampo" role="Organizer" linkedinUrl="https://www.linkedin.com/in/eli-decampo-a28a27274/" image={EliDeCampoImage} />
