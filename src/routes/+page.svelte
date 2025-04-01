@@ -70,14 +70,45 @@
 				'pip',
 				'fullscreen'
 			],
-			hideControls: true,
+			hideControls: false,
+			tooltips: { controls: true, seek: true },
 			keyboard: { focused: true, global: true },
 			fullscreen: { 
 				enabled: true,
 				iosNative: true // Use native iOS fullscreen
 			},
 			clickToPlay: true,
-			ratio: '16:9'
+			ratio: '16:9',
+			loadSprite: true,
+			resetOnEnd: true, // Reset to start when video ends
+			debug: true, // Enable debug mode temporarily to help diagnose issues
+			previewThumbnails: {
+				enabled: true,
+				src: Video
+			},
+			captions: {
+				active: false,
+				language: 'en',
+				update: false
+			}
+		});
+
+		// Force load video metadata when player is ready
+		player.on('ready', () => {
+			console.log('Player is ready');
+			const video = document.querySelector('#video-player') as HTMLVideoElement;
+			if (video) {
+				// Force load first frame
+				video.currentTime = 0.01;
+				setTimeout(() => {
+					video.currentTime = 0;
+				}, 100);
+			}
+		});
+
+		// Log any errors
+		player.on('error', (error) => {
+			console.error('Plyr error:', error);
 		});
 		
 		// For better mobile handling
@@ -251,11 +282,18 @@
 
 			<!-- Promo video section -->
 			<div class="video-container mx-auto aspect-video w-full max-w-[1000px] rounded-xl shadow-[0_0_20px_rgba(0,0,0,0.3)] overflow-hidden relative">
-				<video id="video-player" class="plyr__video-embed" playsinline>
-					<source src={Video} type="video/mp4" />
-					<track kind="captions" src={Captions} srclang="en" label="English" default />
-					Your browser does not support the video tag.
-				</video>
+				<div class="plyr__video-wrapper">
+					<video 
+						id="video-player" 
+						playsinline 
+						preload="auto"
+						crossorigin="anonymous"
+					>
+						<source src={Video} type="video/mp4" />
+						<track kind="captions" src={Captions} srclang="en" label="English" />
+						Your browser does not support the video tag.
+					</video>
+				</div>
 			</div>
 		</div>
 	</section>
@@ -277,10 +315,18 @@
 		<div class="mx-auto flex max-w-[1000px] flex-col gap-[40px]">
 			<h2 class="text-[#9CC747]">Sponsors</h2>
 			<div class="flex flex-wrap justify-center gap-[40px]">
-				<img src={CSALogo} alt="CSA Logo" class="h-[100px] w-auto" />
-				<img src={WonzonesLogo} alt="Wonzones Logo" class="h-[100px] w-auto" />
-				<img src={HCIOLogo} alt="HCIO Logo" class="h-[100px] w-auto" />
-				<img src={CSTEPLogo} alt="CSTEP Logo" class="h-[100px] w-auto" />
+				<div class="w-[200px] flex justify-center">
+					<img src={CSALogo} alt="CSA Logo" class="h-[100px] w-auto" />
+				</div>
+				<div class="w-[200px] flex justify-center">
+					<img src={WonzonesLogo} alt="Wonzones Logo" class="h-[100px] w-auto" />
+				</div>
+				<div class="w-[200px] flex justify-center">
+					<img src={HCIOLogo} alt="HCIO Logo" class="h-[100px] w-auto" />
+				</div>
+				<div class="w-[200px] flex justify-center">
+					<img src={CSTEPLogo} alt="CSTEP Logo" class="h-[100px] w-auto" />
+				</div>
 			</div>
 			<p class="text-white/80">Looking to sponsor? Email us at <a href="mailto:lakerhacks@oswego.edu" class="text-[#D4563F] hover:underline">lakerhacks@oswego.edu</a> for more details!</p>
 		</div>
@@ -456,6 +502,17 @@
 							Join Discord
 						</a>
 					</li>
+					<li>
+						<a 
+							href="https://www.instagram.com/lakerhacks/" 
+							target="_blank" 
+							rel="noopener noreferrer" 
+							class="text-white/80 hover:text-[#E1306C] transition-colors inline-flex items-center gap-2"
+						>
+							<svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 1 0 0 12.324 6.162 6.162 0 0 0 0-12.324zM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm6.406-11.845a1.44 1.44 0 1 0 0 2.881 1.44 1.44 0 0 0 0-2.881z"/></svg>
+							Instagram
+						</a>
+					</li>
 				</ul>
 			</div>
 		</div>
@@ -496,11 +553,29 @@
 	:global(.plyr--video) {
 		border-radius: 0.75rem;
 		overflow: hidden;
+		height: 100%;
+	}
+
+	:global(.plyr__video-wrapper) {
+		height: 100%;
+		width: 100%;
+	}
+
+	:global(.plyr__control--overlaid) {
+		background: var(--plyr-color-main);
+	}
+
+	:global(.plyr--video .plyr__controls) {
+		background: linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.5));
+		padding: 20px;
 	}
 	
 	/* Video dimming effect styles */
 	.video-container {
 		transition: filter 0.5s ease-in-out;
+		position: relative;
+		width: 100%;
+		height: 100%;
 	}
 	
 	.video-paused :global(video) {
