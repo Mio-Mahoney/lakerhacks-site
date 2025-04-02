@@ -27,6 +27,7 @@
 	import JackImage from '$lib/assets/jackgallagher.png';
 	import JessImage from '$lib/assets/jessmetzner.png';
 	import { browser } from '$app/environment';
+	import { base } from '$app/paths';
 
 	// For responsive navigation
 	let isMenuOpen: boolean = false;
@@ -198,9 +199,7 @@
 						Register Now
 					</a>
 					<a
-						href={scheduleURL}
-						target="_blank"
-						rel="noopener noreferrer"
+						href={base + "/schedule"}
 						class="rounded-md bg-[#0B111F] border border-[#D4563F] px-6 py-2 text-sm font-medium text-[#D4563F] transition-all hover:bg-[#050a14]"
 					>
 						View Schedule
@@ -317,9 +316,7 @@
 					</div>
 					<div class="flex justify-center xl:justify-start">
 						<a
-							href={scheduleURL}
-							target="_blank"
-							rel="noopener noreferrer"
+						    href={base + "/schedule"}
 							class="rounded-md bg-[#0B111F] border border-[#D4563F] px-6 py-2 text-sm font-medium text-[#D4563F] transition-all hover:bg-[#050a14]"
 						>
 							View Schedule
@@ -391,6 +388,9 @@
 			</div>
 		</div>
 	</section>
+
+	<!-- Discord Section -->
+	<section id="discord" class="hidden"></section>
 
 	<!-- CTA Section -->
 	<section id="cta" class="mx-auto w-full px-4 py-[100px] text-center">

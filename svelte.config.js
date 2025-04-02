@@ -17,10 +17,13 @@ const config = {
 		adapter: adapter({
 			pages: 'build',
 			assets: 'build',
-			fallback: 'error.html',
+			fallback:'index.html',
 			precompress: false,
 			strict: true
-		})
+		}),
+		paths: {
+			base: '/lakerhacks' 
+		}
 	}
 };
 
