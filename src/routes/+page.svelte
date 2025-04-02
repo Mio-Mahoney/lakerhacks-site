@@ -1,6 +1,7 @@
 <script lang="ts">
 	import Navbar from '$lib/Components/Navbar.svelte';
 	import { onMount } from 'svelte';
+	import { base } from '$app/paths';
 	import { slide } from 'svelte/transition';
 	import Video from '$lib/assets/lakerhacks-promo.mp4';
 	import Logo from '$lib/assets/logo.png';
@@ -25,8 +26,6 @@
 	import LandonImage from '$lib/assets/landonrusco.png';
 	import JackImage from '$lib/assets/jackgallagher.png';
 	import JessImage from '$lib/assets/jessmetzner.png';
-	import Plyr from 'plyr';
-	import 'plyr/dist/plyr.css';
 	import { browser } from '$app/environment';
 	import { base } from '$app/paths';
 
@@ -39,6 +38,9 @@
 	let minutes = 0;
 	let seconds = 0;
 
+	let videoElement: HTMLVideoElement;
+	let isPlaying = false;
+
 	function updateCountdown() {
 		const targetDate = new Date('2025-04-19T10:00:00-04:00'); // 10:00 AM EST
 		const now = new Date();
@@ -50,76 +52,31 @@
 		seconds = Math.floor((difference % (1000 * 60)) / 1000);
 	}
 
+	async function togglePlay() {
+		if (videoElement) {
+			try {
+				if (isPlaying) {
+					await videoElement.pause();
+				} else {
+					await videoElement.play();
+				}
+			} catch (error) {
+				console.error('Error toggling video playback:', error);
+			}
+		}
+	}
+
 	onMount(() => {
 		if (!browser) return;
 
 		updateCountdown();
 		const timer = setInterval(updateCountdown, 1000);
 
-		// Initialize Plyr
-		const player = new Plyr('#video-player', {
-			controls: [
-				'play-large',
-				'play',
-				'progress',
-				'current-time',
-				'mute',
-				'volume',
-				'captions',
-				'settings',
-				'pip',
-				'fullscreen'
-			],
-			hideControls: true,
-			keyboard: { focused: true, global: true },
-			fullscreen: { 
-				enabled: true,
-				iosNative: true // Use native iOS fullscreen
-			},
-			clickToPlay: true,
-			ratio: '16:9'
-		});
-		
-		// For better mobile handling
-		const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
-		
-		// Handle fullscreen on mobile when playing
-		if (isMobile) {
-			player.on('play', () => {
-				try {
-					// Request fullscreen when user plays on mobile
-					const container = player.elements.container;
-					if (container) {
-						if (container.requestFullscreen) {
-							container.requestFullscreen();
-						} else if ((container as any).webkitRequestFullscreen) {
-							(container as any).webkitRequestFullscreen();
-						} else if ((container as any).mozRequestFullScreen) {
-							(container as any).mozRequestFullScreen();
-						} else if ((container as any).msRequestFullscreen) {
-							(container as any).msRequestFullscreen();
-						}
-					}
-				} catch (error) {
-					console.log('Fullscreen request failed:', error);
-				}
-			});
+		// Add video event listeners
+		if (videoElement) {
+			videoElement.addEventListener('play', () => isPlaying = true);
+			videoElement.addEventListener('pause', () => isPlaying = false);
 		}
-		
-		// Add video dimming effect when not playing
-		const videoContainer = document.querySelector('.video-container');
-		player.on('playing', () => {
-			videoContainer?.classList.remove('video-paused');
-			videoContainer?.classList.add('video-playing');
-		});
-		
-		player.on('pause', () => {
-			videoContainer?.classList.remove('video-playing');
-			videoContainer?.classList.add('video-paused');
-		});
-		
-		// Set initial state to paused/dimmed
-		videoContainer?.classList.add('video-paused');
 
 		const handleClickOutside = (event: MouseEvent): void => {
 			const target = event.target as HTMLElement;
@@ -139,7 +96,10 @@
 			if (browser) {
 				document.removeEventListener('click', handleClickOutside);
 				clearInterval(timer);
-				player.destroy();
+				if (videoElement) {
+					videoElement.removeEventListener('play', () => isPlaying = true);
+					videoElement.removeEventListener('pause', () => isPlaying = false);
+				}
 			}
 		};
 	});
@@ -150,16 +110,8 @@
 
 	const registrationURL = 'https://forms.gle/uqoj1GAksMGaDaoNA';
 	const discordURL = 'https://discord.gg/GJrP3cQt2x';
-	const scheduleURL = '/schedule';
+	const scheduleURL = base + '/schedule';
 
-	const navItems: NavItem[] = [
-		{ id: 'about', label: 'About', href: '/#about' },
-		{ id: 'schedule', label: 'Schedule', href: '/schedule' },
-		{ id: 'faq', label: 'FAQ', href: '/#faq' },
-		{ id: 'team', label: 'Team', href: '/#team' },
-		{ id: 'discord', label: 'Join Our Discord', href: '/#discord' },
-		{ id: 'register', label: 'Register Now', href: '/#register' }
-	];
 
 	const faqItems: FAQItem[] = [
 		{
@@ -209,9 +161,7 @@
 	/>
 </svelte:head>
 
-<Navbar {navItems} />
-
-<main class="flex flex-col text-white">
+<div class="flex flex-col text-white graphic">
 	<!-- Hero Section -->
 	<section id="home" class="mx-auto w-full px-4 py-[100px] text-center ">
 		<div class="mx-auto flex w-full max-w-[1000px] flex-col gap-[60px]">
@@ -259,11 +209,35 @@
 
 			<!-- Promo video section -->
 			<div class="video-container mx-auto aspect-video w-full max-w-[1000px] rounded-xl shadow-[0_0_20px_rgba(0,0,0,0.3)] overflow-hidden relative">
-				<video id="video-player" class="plyr__video-embed" playsinline>
+				<video 
+					bind:this={videoElement}
+					controls
+					playsinline 
+					preload="auto"
+					crossorigin="anonymous"
+					class="w-full h-full relative z-10"
+				>
 					<source src={Video} type="video/mp4" />
 					<track kind="captions" src={Captions} srclang="en" label="English" default />
 					Your browser does not support the video tag.
 				</video>
+				{#if !isPlaying}
+					<div 
+						class="absolute inset-0 bg-black/30 flex items-center justify-center z-20" 
+						on:click={togglePlay}
+						on:touchstart={togglePlay}
+					>
+						<button 
+							class="w-16 h-16 rounded-full bg-[#D4563F] flex items-center justify-center hover:bg-[#D4563F]/80 transition-colors cursor-pointer"
+							on:click={togglePlay}
+							on:touchstart={togglePlay}
+						>
+							<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-8 h-8 text-white">
+								<path d="M8 5v14l11-7z"/>
+							</svg>
+						</button>
+					</div>
+				{/if}
 			</div>
 		</div>
 	</section>
@@ -285,10 +259,18 @@
 		<div class="mx-auto flex max-w-[1000px] flex-col gap-[40px]">
 			<h2 class="text-[#9CC747]">Sponsors</h2>
 			<div class="flex flex-wrap justify-center gap-[40px]">
-				<img src={CSALogo} alt="CSA Logo" class="h-[100px] w-auto" />
-				<img src={WonzonesLogo} alt="Wonzones Logo" class="h-[100px] w-auto" />
-				<img src={HCIOLogo} alt="HCIO Logo" class="h-[100px] w-auto" />
-				<img src={CSTEPLogo} alt="CSTEP Logo" class="h-[100px] w-auto" />
+				<div class="w-[200px] flex justify-center">
+					<img src={CSALogo} alt="CSA Logo" class="h-[100px] w-auto" />
+				</div>
+				<div class="w-[200px] flex justify-center">
+					<img src={WonzonesLogo} alt="Wonzones Logo" class="h-[100px] w-auto" />
+				</div>
+				<div class="w-[200px] flex justify-center">
+					<img src={HCIOLogo} alt="HCIO Logo" class="h-[100px] w-auto" />
+				</div>
+				<div class="w-[200px] flex justify-center">
+					<img src={CSTEPLogo} alt="CSTEP Logo" class="h-[100px] w-auto" />
+				</div>
 			</div>
 			<p class="text-white/80">Looking to sponsor? Email us at <a href="mailto:lakerhacks@oswego.edu" class="text-[#D4563F] hover:underline">lakerhacks@oswego.edu</a> for more details!</p>
 		</div>
@@ -426,7 +408,7 @@
 			</div>
 		</div>
 	</section>
-</main>
+</div>
 
 <!-- Footer Section -->
 <footer class="bg-[#0B111F] border-t border-gray-800 px-[20px] py-[40px] text-white w-full">
@@ -465,6 +447,17 @@
 							Join Discord
 						</a>
 					</li>
+					<li>
+						<a 
+							href="https://www.instagram.com/lakerhacks/" 
+							target="_blank" 
+							rel="noopener noreferrer" 
+							class="text-white/80 hover:text-[#E1306C] transition-colors inline-flex items-center gap-2"
+						>
+							<svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 1 0 0 12.324 6.162 6.162 0 0 0 0-12.324zM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm6.406-11.845a1.44 1.44 0 1 0 0 2.881 1.44 1.44 0 0 0 0-2.881z"/></svg>
+							Instagram
+						</a>
+					</li>
 				</ul>
 			</div>
 		</div>
@@ -480,7 +473,7 @@
 		scroll-behavior: smooth;
 	}
 
-	main {
+	div.graphic {
 		background-image: url('/src/lib/assets/background-graphic.png');
 		background-size: auto;
 		background-repeat: no-repeat;
@@ -495,30 +488,23 @@
 		cursor: pointer;
 	}
 
-	/* Plyr custom styles */
-	:global(.plyr) {
-		--plyr-color-main: #D4563F;
-		--plyr-video-background: #0B111F;
-		border-radius: 0.75rem;
-	}
-
-	:global(.plyr--video) {
-		border-radius: 0.75rem;
-		overflow: hidden;
-	}
-	
 	/* Video dimming effect styles */
 	.video-container {
 		transition: filter 0.5s ease-in-out;
+		position: relative;
+		width: 100%;
+		height: 100%;
 	}
 	
-	.video-paused :global(video) {
-		filter: brightness(0.65) saturate(0.8);
-		transition: filter 0.5s ease-in-out;
+	video {
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
 	}
-	
-	.video-playing :global(video) {
-		filter: brightness(1) saturate(1);
-		transition: filter 0.5s ease-in-out;
+
+	/* Ensure video controls stay above the overlay */
+	video::-webkit-media-controls {
+		position: relative;
+		z-index: 30;
 	}
 </style>
