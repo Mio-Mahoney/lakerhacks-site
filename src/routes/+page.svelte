@@ -183,7 +183,7 @@
 				<iframe 
 					width="100%" 
 					height="100%" 
-					src="https://www.youtube.com/embed/pH_abitLy3E?si=zWJQjMpjPSs2WBvn" 
+					src="https://www.youtube.com/embed/pH_abitLy3E?si=zWJQjMpjPSs2WBvn&rel=0&modestbranding=1" 
 					title="YouTube video player" 
 					frameborder="0" 
 					allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
