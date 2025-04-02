@@ -27,7 +27,6 @@
 	import JackImage from '$lib/assets/jackgallagher.png';
 	import JessImage from '$lib/assets/jessmetzner.png';
 	import { browser } from '$app/environment';
-	import { base } from '$app/paths';
 
 	// For responsive navigation
 	let isMenuOpen: boolean = false;
