@@ -3,7 +3,6 @@
 	import { onMount } from 'svelte';
 	import { base } from '$app/paths';
 	import { slide } from 'svelte/transition';
-	import Video from '$lib/assets/lakerhacks-promo.mp4';
 	import Logo from '$lib/assets/logo.png';
 	import Captions from '$lib/assets/lakerhacks-promo-captions.vtt';
 	import TeamItem from '$lib/Components/TeamItem.svelte';
@@ -37,9 +36,6 @@
 	let minutes = 0;
 	let seconds = 0;
 
-	let videoElement: HTMLVideoElement;
-	let isPlaying = false;
-
 	function updateCountdown() {
 		const targetDate = new Date('2025-04-19T10:00:00-04:00'); // 10:00 AM EST
 		const now = new Date();
@@ -51,31 +47,11 @@
 		seconds = Math.floor((difference % (1000 * 60)) / 1000);
 	}
 
-	async function togglePlay() {
-		if (videoElement) {
-			try {
-				if (isPlaying) {
-					await videoElement.pause();
-				} else {
-					await videoElement.play();
-				}
-			} catch (error) {
-				console.error('Error toggling video playback:', error);
-			}
-		}
-	}
-
 	onMount(() => {
 		if (!browser) return;
 
 		updateCountdown();
 		const timer = setInterval(updateCountdown, 1000);
-
-		// Add video event listeners
-		if (videoElement) {
-			videoElement.addEventListener('play', () => isPlaying = true);
-			videoElement.addEventListener('pause', () => isPlaying = false);
-		}
 
 		const handleClickOutside = (event: MouseEvent): void => {
 			const target = event.target as HTMLElement;
@@ -95,10 +71,6 @@
 			if (browser) {
 				document.removeEventListener('click', handleClickOutside);
 				clearInterval(timer);
-				if (videoElement) {
-					videoElement.removeEventListener('play', () => isPlaying = true);
-					videoElement.removeEventListener('pause', () => isPlaying = false);
-				}
 			}
 		};
 	});
@@ -206,37 +178,19 @@
 				</div>
 			</div>
 
-			<!-- Promo video section -->
+			<!-- YouTube video section -->
 			<div class="video-container mx-auto aspect-video w-full max-w-[1000px] rounded-xl shadow-[0_0_20px_rgba(0,0,0,0.3)] overflow-hidden relative">
-				<video 
-					bind:this={videoElement}
-					controls
-					playsinline 
-					preload="auto"
-					crossorigin="anonymous"
-					class="w-full h-full relative z-10"
-				>
-					<source src={Video} type="video/mp4" />
-					<track kind="captions" src={Captions} srclang="en" label="English" default />
-					Your browser does not support the video tag.
-				</video>
-				{#if !isPlaying}
-					<div 
-						class="absolute inset-0 bg-black/30 flex items-center justify-center z-20" 
-						on:click={togglePlay}
-						on:touchstart={togglePlay}
-					>
-						<button 
-							class="w-16 h-16 rounded-full bg-[#D4563F] flex items-center justify-center hover:bg-[#D4563F]/80 transition-colors cursor-pointer"
-							on:click={togglePlay}
-							on:touchstart={togglePlay}
-						>
-							<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-8 h-8 text-white">
-								<path d="M8 5v14l11-7z"/>
-							</svg>
-						</button>
-					</div>
-				{/if}
+				<iframe 
+					width="100%" 
+					height="100%" 
+					src="https://www.youtube.com/embed/pH_abitLy3E?si=zWJQjMpjPSs2WBvn" 
+					title="YouTube video player" 
+					frameborder="0" 
+					allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+					referrerpolicy="strict-origin-when-cross-origin" 
+					allowfullscreen
+					class="w-full h-full"
+				></iframe>
 			</div>
 		</div>
 	</section>
@@ -487,23 +441,11 @@
 		cursor: pointer;
 	}
 
-	/* Video dimming effect styles */
+	/* Video container styles */
 	.video-container {
 		transition: filter 0.5s ease-in-out;
 		position: relative;
 		width: 100%;
 		height: 100%;
-	}
-	
-	video {
-		width: 100%;
-		height: 100%;
-		object-fit: cover;
-	}
-
-	/* Ensure video controls stay above the overlay */
-	video::-webkit-media-controls {
-		position: relative;
-		z-index: 30;
 	}
 </style>
