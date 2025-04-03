@@ -156,7 +156,7 @@
 						<div class="text-[10px] text-white/80">Seconds</div>
 					</div>
 				</div>
-				<h1><span class="text-[#9CC747]">Laker</span><span class="text-[#FFE34F]">Hacks</span></h1>
+				<h1><span class="text-[#FFE34F]">Laker</span><span class="text-[#9CC747]">Hacks</span></h1>
 				<p class="text-white/80">April 19th-20th, 2025</p>
 
 				<div class="mt-4 flex flex-col justify-center gap-[10px] max-w-[400px] mx-auto">

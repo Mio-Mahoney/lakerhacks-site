@@ -48,7 +48,7 @@
 		<div class="flex items-center">
 			<a href={base + "/"} aria-label="Go to Home" class="flex items-center gap-2">
 				<img src={Logo} alt="LakerHacks Logo" class="h-[40px] w-auto" />
-				<span class="text-2xl font-bold"><span class="text-[#9CC747]">Laker</span><span class="text-[#FFE34F]">Hacks</span></span>
+				<span class="text-2xl font-bold"><span class="text-[#FFE34F]">Laker</span><span class="text-[#9CC747]">Hacks</span></span>
 			</a>
 		</div>
 		<NavButton {isMenuOpen} {toggleMenu} />
@@ -64,7 +64,7 @@
 				<div class="hidden xl:flex xl:items-center">
 					<a href={base + "/#home"} aria-label="Go to Home" class="flex items-center gap-2">
 						<img src={Logo} alt="LakerHacks Logo" class="h-[40px] w-auto" />
-						<span class="text-2xl font-bold"><span class="text-[#9CC747]">Laker</span><span class="text-[#FFE34F]">Hacks</span></span>
+						<span class="text-2xl font-bold"><span class="text-[#FFE34F]">Laker</span><span class="text-[#9CC747]">Hacks</span></span>
 					</a>
 				</div>
 				<div
@@ -95,7 +95,7 @@
 				<div class="hidden xl:flex xl:items-center">
 					<a href={base + "/#home"} aria-label="Go to Home" class="flex items-center gap-2">
 						<img src={Logo} alt="LakerHacks Logo" class="h-[40px] w-auto" />
-						<span class="text-2xl font-bold"><span class="text-[#9CC747]">Laker</span><span class="text-[#FFE34F]">Hacks</span></span>
+						<span class="text-2xl font-bold"><span class="text-[#FFE34F]">Laker</span><span class="text-[#9CC747]">Hacks</span></span>
 					</a>
 				</div>
 				<div
