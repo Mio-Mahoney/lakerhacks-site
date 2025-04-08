@@ -10,6 +10,8 @@
 	import WonzonesLogo from '$lib/assets/Wonzones_logo.png';
 	import HCIOLogo from '$lib/assets/HCIO_logo.png';
 	import CSTEPLogo from '$lib/assets/CSTEP_logo.png';
+	import StudentAssociationLogo from '$lib/assets/studentassociationlogo.png';
+	import AuxServicesLogo from '$lib/assets/auxserviceslogo.png';
 	import Image1 from '$lib/assets/image1.png';
 	import Image2 from '$lib/assets/image2.png';
 	import HarrisonImage from '$lib/assets/harrisonrussell.png';
@@ -210,18 +212,24 @@
 	<section id="sponsors" class="mx-auto w-full px-4 py-[100px] text-center ">
 		<div class="mx-auto flex max-w-[1000px] flex-col gap-[40px]">
 			<h2 class="text-[#9CC747]">Sponsors</h2>
-			<div class="flex flex-wrap justify-center gap-[40px]">
-				<div class="w-[200px] flex justify-center">
+			<div class="flex flex-wrap justify-center gap-[40px] p-4 xl:p-8">
+				<div class="w-[250px] flex justify-center">
 					<img src={CSALogo} alt="CSA Logo" class="h-[100px] w-auto" />
 				</div>
-				<div class="w-[200px] flex justify-center">
+				<div class="w-[250px] flex justify-center">
 					<img src={WonzonesLogo} alt="Wonzones Logo" class="h-[100px] w-auto" />
 				</div>
-				<div class="w-[200px] flex justify-center">
+				<div class="w-[250px] flex justify-center">
 					<img src={HCIOLogo} alt="HCIO Logo" class="h-[100px] w-auto" />
 				</div>
-				<div class="w-[200px] flex justify-center">
+				<div class="w-[250px] flex justify-center">
 					<img src={CSTEPLogo} alt="CSTEP Logo" class="h-[100px] w-auto" />
+				</div>
+				<div class="w-[250px] flex justify-center">
+					<img src={StudentAssociationLogo} alt="Student Association Logo" class="h-[100px] w-auto" />
+				</div>
+				<div class="w-[250px] flex justify-center">
+					<img src={AuxServicesLogo} alt="Auxiliary Services Logo" class="h-[100px] w-auto" />
 				</div>
 			</div>
 			<p class="text-white/80">Looking to sponsor? Email us at <a href="mailto:lakerhacks@oswego.edu" class="text-[#D4563F] hover:underline">lakerhacks@oswego.edu</a> for more details!</p>
@@ -372,6 +380,7 @@
 					<li><a href={scheduleURL} target="_blank" rel="noopener noreferrer" class="text-white/80 hover:text-white transition-colors">Schedule</a></li>
 					<li><a href="#faq" class="text-white/80 hover:text-white transition-colors">FAQ</a></li>
 					<li><a href="#team" class="text-white/80 hover:text-white transition-colors">Team</a></li>
+					<li><a href="#sponsors" class="text-white/80 hover:text-white transition-colors">Sponsors</a></li>
 				</ul>
 			</div>
 			<div class="mb-[40px] xl:mb-0 xl:ml-[100px]">
